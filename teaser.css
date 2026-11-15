@@ -213,17 +213,13 @@
   clip-path: polygon(9% 4%, 87% 59%, 60% 60%, 78% 87%, 62% 98%, 43% 70%, 23% 91%);
 }
 .cover-invitation-tap { display: none; }
-.cover-brand-actions .comic-action {
-  pointer-events: auto;
-  min-height: 44px;
-  padding-inline: 12px;
-  font-size: clamp(1.2rem, 1.72vw, 1.55rem);
-  letter-spacing: .025em;
-  background: #ffce72;
+.cover-brand-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px clamp(6px, .75vw, 12px);
 }
-.cover-brand-actions .comic-action:hover { background: #fff0bb; }
-.cover-brand-actions .comic-action span { font: 700 .72em/1 Inter, sans-serif; }
-.cover-brand-actions { column-gap: clamp(6px, .75vw, 12px); }
+.cover-brand-actions .demo-cta { pointer-events: auto; }
 .cover-brand-actions .cover-resource {
   min-height: 44px;
   padding-inline: clamp(7px, .8vw, 12px);

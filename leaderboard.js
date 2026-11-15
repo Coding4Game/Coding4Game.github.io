@@ -35,6 +35,17 @@ function syncHomeNavigation() {
 syncHomeNavigation();
 addEventListener("hashchange", syncHomeNavigation);
 
+if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.intersectionRatio < .65) continue;
+      entry.target.setAttribute("data-cue", "");
+      observer.unobserve(entry.target);
+    }
+  }, { threshold: .65 });
+  document.querySelectorAll(".demo-cta").forEach((button) => observer.observe(button));
+}
+
 function rankRow(model) {
   const row = element("tr");
   const rank = element("td", "rank-number", model.rank ?? "—");

@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Coding4Games ranks coding agents on the programs they develop for Windows games.">
   <title>Coding4Games</title>
+  <link rel="icon" type="image/png" sizes="64x64" href="/assets/coding4games-icon.png">
   <link rel="stylesheet" href="/styles.css?v=hidden-scrollbars">
-  <link rel="stylesheet" href="/comic.css?v=benchmark-workflow">
+  <link rel="stylesheet" href="/comic.css?v=playable-demos">
   <link rel="stylesheet" href="/workflow.css?v=auto-replay">
-  <link rel="stylesheet" href="/teaser.css?v=preview-hold">
+  <link rel="stylesheet" href="/teaser.css?v=playable-demos">
   <link rel="stylesheet" href="/teaser-layout-start-flame.css">
   <link rel="stylesheet" href="/arcade/playable.css?v=comic">
   <link rel="preload" as="image" href="/assets/game-cover/scene-speed/still/forza.webp">
   <script type="module" src="/teaser.js?v=riders-highlight"></script>
-  <script type="module" src="/leaderboard.js?v=benchmark-workflow"></script>
+  <script type="module" src="/leaderboard.js?v=playable-demos"></script>
   <script type="module" src="/workflow.js?v=auto-replay"></script>
 </head>
 <body class="home-page">
@@ -70,7 +71,7 @@
                 <span class="cover-invitation-tap">Tap any game</span>
               </p>
               <div class="cover-brand-actions">
-                <a class="button comic-action" href="/arcade/play.html"><span aria-hidden="true">▶</span> Playable demos</a>
+                <a class="button comic-action demo-cta" href="/arcade/play.html"><span class="demo-cta-icon" aria-hidden="true"></span>Playable demos</a>
                 <button type="button" class="button cover-resource" disabled>Paper</button>
                 <a class="button cover-resource" href="https://github.com/GVCLab/Coding4Games" target="_blank" rel="noopener">GitHub</a>
               </div>
@@ -171,7 +172,7 @@
       <div class="wrap">
         <div class="directory-heading">
           <h2 class="comic-section-title" id="games-title">Games</h2>
-          <a class="button comic-action" href="/arcade/play.html"><span aria-hidden="true">▶</span> Playable demos</a>
+          <a class="button comic-action demo-cta" href="/arcade/play.html"><span class="demo-cta-icon" aria-hidden="true"></span>Playable demos</a>
         </div>
         <ul class="game-index" id="game-list"></ul>
       </div>
