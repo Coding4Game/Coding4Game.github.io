@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment evidence | Coding4Games</title>
+  <link rel="stylesheet" href="/styles.css?v=selected-results">
+  <link rel="stylesheet" href="/comic.css?v=evidence">
+  <script type="module" src="/experiment.js?v=recovered-evidence"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Coding4Games home"><img src="/assets/coding4games-logo.png" alt="" width="2176" height="723"></a>
+      <nav aria-label="Main navigation"><a href="/#results">Leaderboard</a><a href="/#games">Games</a><a href="/arcade/play.html">Play demos</a></nav>
+    </div>
+  </header>
+  <main class="wrap experiment" id="main">
+    <nav class="run-crumbs" aria-label="Result pages">
+      <a class="back-link" id="back-results" href="/#results">← Game results</a>
+      <a class="back-link" id="game-scoring-link" href="/#rank-scoring" hidden>Game scoring ↗</a>
+      <a class="back-link" id="back-model" href="/#results" hidden>Model results ↗</a>
+    </nav>
+    <p id="page-status" class="pending" role="status">Loading experiment…</p>
+    <div id="experiment-content" hidden>
+      <div class="experiment-heading">
+        <div><h1 id="game-title"></h1><p id="experiment-meta"></p></div>
+        <div class="result-visual run-visual" id="game-visual"></div>
+      </div>
+
+      <div class="run-overview">
+        <div class="run-switches">
+          <label class="experiment-switch"><span>Game</span><select id="game-select"></select></label>
+          <label class="experiment-switch"><span>Model</span><select id="experiment-select"></select></label>
+        </div>
+        <dl class="run-stats" aria-label="Experiment scores and development usage">
+          <div><dt id="score-label">Mean test score</dt><dd id="mean-score"></dd></div>
+          <div id="tic-stat" hidden><dt>Dev tics</dt><dd id="dev-tics"></dd></div>
+          <div id="token-stat" hidden><dt>Confirmed tokens</dt><dd id="dev-tokens"></dd></div>
+        </dl>
+      </div>
+
+        <div class="evidence-workspace">
+          <p class="evidence-note" id="artifact-note" hidden></p>
+          <div class="evidence-tabs" role="tablist" aria-label="Experiment evidence">
+            <button type="button" role="tab" id="tab-tests" aria-controls="panel-tests" aria-selected="false" tabindex="-1" data-tab="tests"><span aria-hidden="true">▶</span> Test videos</button>
+            <button type="button" role="tab" id="tab-script" aria-controls="panel-script" aria-selected="false" tabindex="-1" data-tab="script"><span aria-hidden="true">&lt;/&gt;</span> Policy script</button>
+            <button type="button" role="tab" id="tab-log" aria-controls="panel-log" aria-selected="false" tabindex="-1" data-tab="log">Execution log</button>
+          </div>
+
+          <section class="evidence-panel" id="panel-tests" role="tabpanel" aria-labelledby="tab-tests" hidden>
+            <div class="test-options" id="test-options" role="group" aria-label="Choose an independent test"></div>
+            <div class="video-frame"><video id="test-video" controls playsinline preload="metadata" aria-label="Independent test recording"></video></div>
+            <div class="video-meta"><p id="video-facts"></p><a id="video-link" class="text-link" target="_blank" rel="noopener">Open video ↗</a></div>
+            <p id="video-error" class="inline-error" role="status" hidden></p>
+          </section>
+
+          <section class="evidence-panel trace-panel" id="panel-log" role="tabpanel" aria-labelledby="tab-log" hidden>
+            <div class="trace-empty" id="trace-empty" hidden>
+              <h2>No execution log available</h2>
+              <p id="trace-empty-reason"></p>
+            </div>
+            <div id="trace-view" hidden>
+              <div class="trace-controls">
+                <label><span>Run</span><select id="log-attempt"></select></label>
+                <label><span>Source</span><select id="log-source"></select></label>
+                <label><span>Events</span><select id="log-kind"><option value="">All events</option></select></label>
+                <label class="log-search"><span>Search</span><input type="search" id="log-query" placeholder="Event or output…"></label>
+              </div>
+              <div class="trace-player" role="group" aria-label="Replay controls">
+                <div class="trace-buttons">
+                  <button class="trace-play" type="button" id="log-play" disabled><span aria-hidden="true">▶</span><span>Play</span></button>
+                  <button class="trace-skip" type="button" id="log-prev" aria-label="Previous event" title="Previous event" disabled>‹</button>
+                  <button class="trace-skip" type="button" id="log-next" aria-label="Next event" title="Next event" disabled>›</button>
+                </div>
+                <label class="trace-scrub"><span class="sr-only">Jump to event</span><input type="range" id="log-seek" min="1" max="1" value="1" disabled></label>
+                <span class="trace-position" id="trace-position">—</span>
+              </div>
+              <section class="trace-body" aria-labelledby="trace-events-title">
+                <div class="trace-log-head">
+                  <div><h2 id="trace-events-title">Run transcript</h2><span id="log-status" role="status"></span></div>
+                  <a id="log-full-text" class="text-link" target="_blank" rel="noopener">Full text ↗</a>
+                </div>
+                <div class="trace-scroll" id="log-scroll" role="region" aria-label="Chronological execution log" tabindex="0">
+                  <button type="button" id="log-load-earlier" class="trace-load" hidden>Load earlier events ↑</button>
+                  <ol class="trace-list" id="log-list"></ol>
+                  <p id="log-feedback" class="trace-placeholder" role="status" hidden></p>
+                  <button type="button" id="log-load-next" class="trace-load" hidden>Load more events ↓</button>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <section class="evidence-panel" id="panel-script" role="tabpanel" aria-labelledby="tab-script" hidden>
+            <div class="script-toolbar">
+              <div class="script-info">
+                <h2 id="submission-title">Final submission</h2>
+                <p id="submission-context">Frozen bundle used in the independent tests.</p>
+              </div>
+              <div class="script-controls">
+                <label><span class="sr-only">Submitted source file</span><select id="file-select"></select></label>
+                <span id="file-status" role="status"></span>
+                <a class="button subtle" id="open-script" target="_blank" rel="noopener" hidden>Open file ↗</a>
+                <button class="button subtle" id="copy-script" type="button" disabled>Copy code</button>
+              </div>
+            </div>
+            <div id="source-view" class="source-view" role="region" aria-label="Final submitted source code" tabindex="0">
+              <pre id="line-numbers" aria-hidden="true"></pre><pre><code id="source-code"></code></pre>
+            </div>
+          </section>
+        </div>
+
+        <details class="run-facts" id="run-facts" hidden>
+          <summary>Run facts</summary>
+          <dl class="run-fact-list">
+            <div id="program-fact"><dt id="program-label">Frozen program ID</dt><dd><code id="program-id"></code></dd></div>
+            <div id="test-fact"><dt>Test scores</dt><dd id="recorded-tests"></dd></div>
+            <div id="usage-fact" hidden><dt>Requests with unknown usage</dt><dd id="unknown-usage"></dd></div>
+          </dl>
+          <p id="floor-note" class="evidence-note" hidden>Recorded development usage fell below the common comparison floor.</p>
+        </details>
+    </div>
+  </main>
+  <dialog id="frame-dialog" class="frame-dialog" aria-labelledby="frame-caption">
+    <button type="button" id="frame-close" aria-label="Close screenshot">×</button>
+    <figure><img id="frame-image" alt=""><figcaption id="frame-caption"></figcaption></figure>
+  </dialog>
+  <footer class="site-footer"><div class="wrap footer-inner"><a class="brand" href="/" aria-label="Coding4Games home"><img src="/assets/coding4games-logo.png" alt="" width="2176" height="723"></a><a href="/#results">Leaderboard</a></div></footer>
+</body>
+</html>

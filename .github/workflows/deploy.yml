@@ -1,0 +1,48 @@
+name: Deploy Coding4Games project page
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/configure-pages@v5
+      - name: Assemble the static site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          site="$RUNNER_TEMP/coding4games-site"
+          packs="$RUNNER_TEMP/coding4games-packs"
+          mkdir -p "$site" "$packs"
+          gh release download benchmark-recordings-20261115 --repo "$GITHUB_REPOSITORY" --pattern 'pages-assets-*.zip' --dir "$packs"
+          (
+            cd "$packs"
+            sha256sum -c "$GITHUB_WORKSPACE/pages-assets.sha256"
+            for pack in pages-assets-*.zip; do
+              unzip -q "$pack" -d "$site"
+            done
+          )
+          cp .nojekyll ./*.html ./*.css ./*.js "$site/"
+          test -s "$site/index.html"
+          test -s "$site/data/results.json"
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/coding4games-site
+      - uses: actions/deploy-pages@v4
+        id: deployment

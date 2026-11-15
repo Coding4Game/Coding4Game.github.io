@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Results | Coding4Games</title>
+  <link rel="stylesheet" href="/styles.css?v=solid-scores">
+  <link rel="stylesheet" href="/comic.css?v=solid-scores">
+  <link rel="stylesheet" href="/arcade/playable.css?v=duel">
+  <script type="module" src="/results.js?v=recovered-evidence"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner playable-nav">
+      <a class="brand" href="/" aria-label="Coding4Games home"><img src="/assets/coding4games-logo.png" alt="" width="2176" height="723"></a>
+      <nav aria-label="Main navigation"><a href="/#results">Leaderboard</a><a href="/#games">Games</a><a href="/arcade/play.html">Play demos</a></nav>
+    </div>
+  </header>
+  <main id="main" class="wrap result-page">
+    <a class="back-link" href="/#results"><span aria-hidden="true">←</span> Leaderboard</a>
+    <p id="page-status" class="pending" role="status">Loading results…</p>
+    <div id="page-content" hidden>
+      <div class="browse-heading">
+        <div>
+          <h1 id="page-title"></h1>
+          <dl class="model-summary" id="model-summary" hidden>
+            <div><dt>Rank</dt><dd id="model-rank"></dd></div>
+            <div><dt>Mean score</dt><dd id="model-mean-score"></dd></div>
+          </dl>
+        </div>
+        <div class="result-heading-tools" id="game-picker" hidden>
+          <label class="result-switch"><span>Game</span><select id="result-switch"></select></label>
+        </div>
+      </div>
+
+      <section class="game-brief" id="game-brief" aria-labelledby="brief-title" hidden>
+        <div class="brief-art" id="game-visual"></div>
+        <div class="brief-content">
+          <h2 id="brief-title">Mission briefing</h2>
+          <div class="brief-panels">
+            <div><h3>The game</h3><p id="game-intro"></p></div>
+            <div><h3>Benchmark task</h3><p id="game-task"></p></div>
+          </div>
+          <div class="brief-links">
+            <a class="button comic-action" id="brief-play-link" hidden><span aria-hidden="true">▶</span> Play demo</a>
+            <a class="button subtle steam-link" id="game-steam-link" target="_blank" rel="noopener noreferrer" hidden>View on Steam <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="game-recordings" id="test-videos" aria-labelledby="game-test-title" hidden>
+        <div class="game-test-heading">
+          <h2 class="comic-section-title" id="game-test-title">Test videos</h2>
+          <div id="game-test-models" class="game-test-models" role="group" aria-label="Model recordings"></div>
+        </div>
+        <figure class="game-test-screen">
+          <video id="game-test-video" controls playsinline preload="none" aria-label="Independent test recording"></video>
+          <figcaption>
+            <div class="game-test-trials" id="game-test-trials" role="group" aria-label="Choose an independent test"></div>
+            <div class="game-test-actions">
+              <a class="button subtle" id="game-test-log">Execution log</a>
+              <a class="button comic-action" id="game-test-policy">Policy script <span aria-hidden="true">↗</span></a>
+            </div>
+          </figcaption>
+        </figure>
+        <p class="inline-error" id="game-test-error" role="status" hidden>The recording could not be played.</p>
+      </section>
+
+      <details id="scoring" class="score-rules" hidden>
+        <summary><span class="score-badge">Game scoring</span><strong id="game-scoring-formula"></strong><span class="score-toggle" aria-hidden="true"></span></summary>
+        <div class="score-details">
+          <dl id="game-scoring-steps"></dl>
+          <p>Current rule. The game result averages three independent tests; earlier results retain their recorded scores.</p>
+        </div>
+      </details>
+
+      <section class="chart-card" aria-label="Results chart">
+        <div class="chart-heading">
+          <h2 id="chart-title">Scores</h2>
+          <div class="chart-links"><a class="text-link" href="/#rank-scoring">Leaderboard scoring ↗</a><a class="text-link" href="#experiments">Experiments <span aria-hidden="true">↓</span></a></div>
+        </div>
+        <div id="chart" class="chart-area" aria-live="polite"></div>
+        <div class="chart-foot" id="chart-legend" hidden><div class="plot-legend"><span class="legend-pending">Source under review</span></div></div>
+      </section>
+
+      <section class="table-section" id="experiments" aria-labelledby="experiments-title">
+        <div class="table-heading"><h2 id="experiments-title">Experiments</h2><p id="table-count" aria-live="polite"></p></div>
+        <div class="filters">
+          <label class="filter-search"><span class="sr-only" id="query-label">Search results</span><input id="query" type="search"></label>
+        </div>
+        <div class="table-scroll" role="region" aria-label="Experiment results" tabindex="0">
+          <table class="experiment-table">
+            <thead><tr><th scope="col" id="entity-heading"></th><th scope="col">Test scores</th><th scope="col" class="numeric">Score</th><th scope="col" class="numeric">0–100</th><th scope="col">Evidence</th></tr></thead>
+            <tbody id="result-rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="wrap footer-inner"><a class="brand" href="/" aria-label="Coding4Games home"><img src="/assets/coding4games-logo.png" alt="" width="2176" height="723"></a><a href="/#results">Leaderboard</a></div></footer>
+</body>
+</html>
