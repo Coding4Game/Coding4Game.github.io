@@ -11,11 +11,12 @@ const IDLE_ART_DELAY_MS = 800;
 const previewSources = {
   "black-myth": "/assets/demos/black-myth-highlight-10b72986b5a1.mp4",
   overcooked: "/assets/demos/overcooked-highlight-5dce6a40f9bc.mp4",
-  "riders-republic": "/assets/demos/riders-republic-highlight-8ad69a3d3b14.mp4",
+  "riders-republic": "/assets/demos/riders-republic-clear-0d8883825ff9.mp4",
   sekiro: "/assets/demos/sekiro-highlight-345fb51ecad6.mp4",
 };
 const videoArtwork = new Set(["forza", "trackmania"]);
 const artFolders = {
+  balatro: "scene-cards",
   forza: "scene-speed",
   "nba-2k25": "scene-wheels-court",
   trackmania: "scene-start-flame",
@@ -210,6 +211,7 @@ function initializeCover() {
   const video = byId("cover-video");
   const preview = byId("cover-preview");
   const title = byId("cover-game-name");
+  const icon = byId("cover-game-icon");
   const source = byId("cover-preview-source");
   const results = byId("cover-results");
   const tests = byId("cover-tests");
@@ -243,7 +245,7 @@ function initializeCover() {
   let usingDemo = false;
   let retireTimer = 0;
   const evidence = new Map();
-  const firstMotion = new Set([...Object.keys(artFolders), "balatro"]);
+  const firstMotion = new Set(Object.keys(artFolders));
   const idleFigures = [
     ...figures.filter((link) => firstMotion.has(link.dataset.game)),
     ...figures.filter((link) => !firstMotion.has(link.dataset.game)),
@@ -536,6 +538,7 @@ function initializeCover() {
     stage.dataset.activeGame = link.dataset.game;
     stage.dataset.previewSide = link.dataset.side;
     title.textContent = link.getAttribute("aria-label");
+    icon.removeAttribute("data-ready");
     updatePreviewLinks(link);
     preview.hidden = false;
     const game = link.dataset.game;
@@ -544,6 +547,10 @@ function initializeCover() {
     if (hasDemo || run) loadVideo(game, run);
     else source.textContent = "Replay unavailable";
     loadArtwork(link);
+    icon.src = `/assets/games/${encodeURIComponent(game)}-logo.png`;
+    icon.decode().then(() => {
+      if (current === link) icon.setAttribute("data-ready", "");
+    }).catch(() => {});
   }
 
   function previewIsHeld() {

@@ -193,12 +193,15 @@
   align-items: center;
   min-height: 44px;
   padding: 5px 8px;
-  border: 1px solid #cfb5a2;
-  background: #fff0dc;
-  box-shadow: 2px 2px 0 #55405d;
+  border: 1px solid #3e3248;
+  background: #000;
 }
 .footer-lab:hover { border-color: var(--accent); }
-.footer-lab img { width: clamp(106px, 11vw, 140px); height: auto; }
+.footer-lab img {
+  width: clamp(106px, 11vw, 140px);
+  height: auto;
+  filter: invert(1) hue-rotate(180deg);
+}
 
 @media (max-width: 620px) {
   .rank-scoring summary { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 8px; padding: 8px; }

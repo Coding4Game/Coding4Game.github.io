@@ -314,7 +314,7 @@
   right: 3.8%;
   text-align: right;
 }
-.teaser-stage[data-preview-side="left"] .cover-preview-actions { justify-content: end; }
+.teaser-stage[data-preview-side="left"] :is(.cover-preview-heading, .cover-preview-actions) { justify-content: end; }
 .cover-preview-source {
   display: inline-block;
   color: #f3cfb4;
@@ -322,7 +322,20 @@
   letter-spacing: .055em;
   text-transform: uppercase;
 }
-.cover-preview h2 { margin-block: 5px 10px; font-size: clamp(1.45rem, 3.1vw, 2.65rem); text-wrap: balance; }
+.cover-preview-heading { display: flex; align-items: center; gap: 10px; margin-block: 5px 10px; }
+.cover-preview-icon {
+  flex: none;
+  width: clamp(44px, 4.2vw, 64px);
+  height: clamp(34px, 3vw, 46px);
+  padding: 4px;
+  border: 1px solid #bb9fa9;
+  background: #19131e;
+  box-shadow: -2px 2px 0 #345765;
+  object-fit: contain;
+  visibility: hidden;
+}
+.cover-preview-icon[data-ready] { visibility: visible; }
+.cover-preview h2 { min-width: 0; font-size: clamp(1.45rem, 3.1vw, 2.65rem); text-wrap: balance; }
 .cover-preview-actions { display: flex; align-items: center; gap: 7px; pointer-events: auto; }
 .cover-preview-actions :is(a, button) {
   display: inline-flex;
@@ -365,10 +378,10 @@
     max-width: none;
     text-align: left;
   }
-  .teaser-stage[data-preview-side] .cover-preview-actions { justify-content: start; }
+  .teaser-stage[data-preview-side] :is(.cover-preview-heading, .cover-preview-actions) { justify-content: start; }
   .cover-scroll { left: max(16px, env(safe-area-inset-left)); transform: none; }
   .cover-views button { width: 44px; height: 44px; }
-  .cover-preview h2 { margin-block: 3px 7px; }
+  .cover-preview-heading { gap: 8px; margin-block: 3px 7px; }
 }
 
 @media (max-width: 719px) and (pointer: coarse) {
