@@ -547,6 +547,7 @@ function initializeCover() {
     if (hasDemo || run) loadVideo(game, run);
     else source.textContent = "Replay unavailable";
     loadArtwork(link);
+    if (game === "forza") return;
     icon.src = `/assets/games/${encodeURIComponent(game)}-logo.png`;
     icon.decode().then(() => {
       if (current === link) icon.setAttribute("data-ready", "");
@@ -620,6 +621,19 @@ function initializeCover() {
     if (highlighted === link && hovered !== link) clearHighlight();
     scheduleClose();
   });
+  stage.addEventListener("click", (event) => {
+    if (!current || event.detail === 0) return;
+    const target = event.target;
+    const control = target instanceof Element ? target.closest("a[href], button") : null;
+    if (control?.closest(".cover-preview-actions, .cover-teaser-actions")) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    const clickedGame = getLink(target);
+    stop(preview.contains(document.activeElement));
+    // Wait for the pointer to leave this game before opening its preview again.
+    hovered = clickedGame;
+  }, { capture: true });
   gallery.addEventListener("click", (event) => {
     const link = getLink(event.target);
     if (!link || event.detail === 0 || !touch.matches ||
