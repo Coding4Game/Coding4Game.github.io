@@ -5,7 +5,7 @@ import { playableUrl } from "/arcade/playable.js?v=duel";
 const VIDEO_START = 4;
 const PREVIEW_SECONDS = 7;
 const HOVER_HIGHLIGHT_MS = 340;
-const PREVIEW_CLOSE_MS = 1500;
+const PREVIEW_CLOSE_MS = 1000;
 const PREVIEW_FADE_MS = 140;
 const previewSources = {
   "black-myth": "/assets/demos/black-myth-highlight-10b72986b5a1.mp4",
