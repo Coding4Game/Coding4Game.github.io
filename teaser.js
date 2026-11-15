@@ -645,6 +645,9 @@ function initializeCover() {
 
   video.addEventListener("loadedmetadata", () => {
     if (!current) return;
+    if (video.videoHeight) {
+      video.style.setProperty("--preview-video-ratio", String(video.videoWidth / video.videoHeight));
+    }
     video.currentTime = clipStart();
     play();
   });

@@ -92,6 +92,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  container-type: size;
   z-index: 2;
   opacity: 0;
   pointer-events: none;
@@ -101,8 +102,12 @@
 .cover-media video {
   display: block;
   width: 75%;
-  height: 85%;
+  width: min(75%, calc(85cqh * var(--preview-video-ratio, 1.77778)));
+  height: auto;
   object-fit: contain;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent),
+              linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+  mask-composite: intersect;
 }
 .teaser-stage[data-video-ready] .cover-media {
   opacity: 1;
@@ -404,7 +409,12 @@
 }
 
 @media (orientation: portrait) {
-  .cover-media video { object-position: center 20%; }
+  .cover-media video {
+    position: absolute;
+    top: 24.5%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
