@@ -10,6 +10,7 @@ const PREVIEW_FADE_MS = 140;
 const previewSources = {
   "black-myth": "/assets/demos/black-myth-highlight-10b72986b5a1.mp4",
   overcooked: "/assets/demos/overcooked-highlight-5dce6a40f9bc.mp4",
+  "riders-republic": "/assets/demos/riders-republic-highlight-8ad69a3d3b14.mp4",
   sekiro: "/assets/demos/sekiro-highlight-345fb51ecad6.mp4",
 };
 const videoArtwork = new Set(["forza", "trackmania"]);

@@ -1,32 +1,38 @@
+const REPLAY_DELAY_MS = 5000;
+
 const workflow = document.getElementById("workflow");
-const replay = document.getElementById("workflow-replay");
+const steps = workflow.querySelector(".workflow-steps");
+const score = steps.querySelector(".workflow-trial-score");
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-let frame;
+let inView = false;
+let replayTimer;
+let restartFrame;
 
-function playWorkflow() {
-  workflow.removeAttribute("data-playing");
-  cancelAnimationFrame(frame);
-  if (reducedMotion.matches) return;
-  frame = requestAnimationFrame(() => {
-    frame = requestAnimationFrame(() => workflow.setAttribute("data-playing", ""));
-  });
-}
-
-function updateMotionPreference() {
-  replay.hidden = reducedMotion.matches;
-  if (reducedMotion.matches) {
-    cancelAnimationFrame(frame);
-    workflow.removeAttribute("data-playing");
+function updatePlayback() {
+  if (inView && !document.hidden && !reducedMotion.matches) {
+    workflow.setAttribute("data-playing", "");
+    return;
   }
+  clearTimeout(replayTimer);
+  cancelAnimationFrame(restartFrame);
+  workflow.removeAttribute("data-playing");
 }
 
-updateMotionPreference();
-reducedMotion.addEventListener("change", updateMotionPreference);
-replay.addEventListener("click", playWorkflow);
+score.addEventListener("animationend", (event) => {
+  if (event.target !== score || !workflow.hasAttribute("data-playing")) return;
+  replayTimer = window.setTimeout(() => {
+    workflow.removeAttribute("data-playing");
+    restartFrame = requestAnimationFrame(() => {
+      restartFrame = requestAnimationFrame(updatePlayback);
+    });
+  }, REPLAY_DELAY_MS);
+});
 
-const observer = new IntersectionObserver((entries) => {
-  if (!entries.some((entry) => entry.isIntersecting)) return;
-  observer.disconnect();
-  playWorkflow();
-}, { threshold: 0.35 });
-observer.observe(workflow.querySelector(".workflow-steps"));
+reducedMotion.addEventListener("change", updatePlayback);
+document.addEventListener("visibilitychange", updatePlayback);
+
+const observer = new IntersectionObserver(([entry]) => {
+  inView = entry.isIntersecting;
+  updatePlayback();
+});
+observer.observe(steps);

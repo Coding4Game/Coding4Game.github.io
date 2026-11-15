@@ -127,18 +127,6 @@
   font: 700 .73rem/1 var(--mono);
 }
 .workflow-trial-score span { margin-left: 4px; }
-.workflow-actions { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 18px; }
-.workflow-replay {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #eadcd9;
-  font: inherit;
-  font-size: .9rem;
-  cursor: pointer;
-}
-.workflow-replay:hover { color: var(--accent); }
-.workflow-replay span { margin-right: 3px; color: var(--accent); }
 
 @media (prefers-reduced-motion: no-preference) {
   .workflow[data-playing] .workflow-ticket { animation: workflow-handoff 6.2s ease-in-out both; }
