@@ -14,6 +14,10 @@ const previewSources = {
   "riders-republic": "/assets/demos/riders-republic-clear-0d8883825ff9.mp4",
   sekiro: "/assets/demos/sekiro-highlight-345fb51ecad6.mp4",
 };
+const compactPreviewIcons = new Set([
+  "aim-lab", "balatro", "black-myth", "brotato", "kingdom-rush",
+  "nba-2k25", "palworld", "sekiro", "trackmania",
+]);
 const videoArtwork = new Set(["forza", "trackmania"]);
 const artFolders = {
   balatro: "scene-cards",
@@ -548,7 +552,10 @@ function initializeCover() {
     else source.textContent = "Replay unavailable";
     loadArtwork(link);
     if (game === "forza") return;
-    icon.src = `/assets/games/${encodeURIComponent(game)}-logo.png`;
+    const compactIcon = compactPreviewIcons.has(game);
+    icon.toggleAttribute("data-compact", compactIcon);
+    const iconName = encodeURIComponent(game);
+    icon.src = compactIcon ? `/assets/preview-icons/${iconName}.png` : `/assets/games/${iconName}-logo.png`;
     icon.decode().then(() => {
       if (current === link) icon.setAttribute("data-ready", "");
     }).catch(() => {});

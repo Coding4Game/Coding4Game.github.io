@@ -390,6 +390,11 @@
   visibility: hidden;
 }
 .cover-preview-icon[data-ready] { visibility: visible; }
+.cover-preview-icon[data-compact] {
+  width: clamp(34px, 3vw, 46px);
+  padding: 3px;
+  object-fit: scale-down;
+}
 .cover-preview-forza,
 .teaser-stage[data-active-game="forza"] #cover-game-icon { display: none; }
 .teaser-stage[data-active-game="forza"] .cover-preview-forza { display: block; visibility: visible; }
