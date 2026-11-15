@@ -36,6 +36,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+:root, .table-scroll { scrollbar-width: none; }
+:root::-webkit-scrollbar, .table-scroll::-webkit-scrollbar { display: none; }
 body { margin: 0; }
 [hidden] { display: none !important; }
 img { display: block; max-width: 100%; }

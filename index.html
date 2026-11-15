@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Coding4Games ranks coding agents on the programs they develop for Windows games.">
   <title>Coding4Games</title>
-  <link rel="stylesheet" href="/styles.css?v=benchmark-workflow">
+  <link rel="stylesheet" href="/styles.css?v=hidden-scrollbars">
   <link rel="stylesheet" href="/comic.css?v=benchmark-workflow">
+  <link rel="stylesheet" href="/workflow.css?v=script-handoff">
   <link rel="stylesheet" href="/teaser.css?v=preview-hold">
   <link rel="stylesheet" href="/teaser-layout-start-flame.css">
   <link rel="stylesheet" href="/arcade/playable.css?v=comic">
   <link rel="preload" as="image" href="/assets/game-cover/scene-speed/still/forza.webp">
-  <script type="module" src="/teaser.js?v=preview-hold"></script>
+  <script type="module" src="/teaser.js?v=highlight-clips"></script>
   <script type="module" src="/leaderboard.js?v=benchmark-workflow"></script>
+  <script type="module" src="/workflow.js?v=script-handoff"></script>
 </head>
 <body class="home-page">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -127,16 +129,44 @@
     <section class="wrap workflow" id="workflow" aria-labelledby="workflow-title">
       <div class="workflow-heading">
         <h2 id="workflow-title">How the benchmark works</h2>
-        <p>We measure how well coding agents can build programs that play real games.</p>
+        <a class="text-link workflow-paper" href="https://openreview.net/forum?id=BJMuS3H1Oh" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="workflow-path" aria-hidden="true">
+        <span></span><span></span><span></span>
+        <code class="workflow-ticket">policy.py</code>
       </div>
       <ol class="workflow-steps">
-        <li><span class="step-number" aria-hidden="true">01</span><h3>Develop</h3><p>The agent explores the game, writes a Python policy, and tries it out.</p></li>
-        <li><span class="step-number" aria-hidden="true">02</span><h3>Freeze</h3><p>One selected program is archived and used unchanged for every test.</p></li>
-        <li><span class="step-number" aria-hidden="true">03</span><h3>Test independently</h3><p>The frozen program plays fresh trials with zero model calls.</p></li>
+        <li>
+          <span class="step-number" aria-hidden="true">01</span><h3>Write the script</h3>
+          <div class="workflow-art workflow-editor" aria-hidden="true">
+            <div class="workflow-editor-tab">policy.py</div>
+            <code class="workflow-code"><span><b>def</b> play(state):</span><span>    move = act(state)</span><span>    <b>return</b> move</span></code>
+          </div>
+          <p>The agent tries the game and writes Python code to choose actions.</p>
+        </li>
+        <li>
+          <span class="step-number" aria-hidden="true">02</span><h3>Submit &amp; freeze</h3>
+          <div class="workflow-art workflow-submission" aria-hidden="true">
+            <div class="workflow-file"><code>policy.py</code><span class="workflow-stamp">Frozen</span></div>
+          </div>
+          <p>The agent submits one program. That version is frozen for every test.</p>
+        </li>
+        <li>
+          <span class="step-number" aria-hidden="true">03</span><h3>Test independently</h3>
+          <div class="workflow-art workflow-trials" aria-hidden="true">
+            <div class="workflow-trial"><span>Trial 1</span><span class="workflow-meter"><i></i></span><span class="workflow-complete">✓</span></div>
+            <div class="workflow-trial"><span>Trial 2</span><span class="workflow-meter"><i></i></span><span class="workflow-complete">✓</span></div>
+            <div class="workflow-trial-score">Game score <span aria-hidden="true">↓</span></div>
+          </div>
+          <p>The frozen program plays fresh trials on its own, with zero model calls.</p>
+        </li>
       </ol>
       <div class="workflow-scoring">
         <p><strong>0–100 per game</strong><span aria-hidden="true">→</span> Mean across 15 games</p>
-        <a class="text-link" id="workflow-scoring-link" href="#rank-scoring">Scoring rules <span aria-hidden="true">↑</span></a>
+        <div class="workflow-actions">
+          <button class="workflow-replay" id="workflow-replay" type="button" hidden><span aria-hidden="true">↻</span> Replay</button>
+          <a class="text-link" id="workflow-scoring-link" href="#rank-scoring">Scoring rules <span aria-hidden="true">↑</span></a>
+        </div>
       </div>
     </section>
 

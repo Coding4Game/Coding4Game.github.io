@@ -5,8 +5,13 @@ import { playableUrl } from "/arcade/playable.js?v=duel";
 const VIDEO_START = 4;
 const PREVIEW_SECONDS = 7;
 const HOVER_HIGHLIGHT_MS = 340;
-const PREVIEW_CLOSE_MS = 2000;
+const PREVIEW_CLOSE_MS = 1500;
 const PREVIEW_FADE_MS = 140;
+const previewSources = {
+  "black-myth": "/assets/demos/black-myth-highlight-10b72986b5a1.mp4",
+  overcooked: "/assets/demos/overcooked-highlight-5dce6a40f9bc.mp4",
+  sekiro: "/assets/demos/sekiro-highlight-345fb51ecad6.mp4",
+};
 const videoArtwork = new Set(["forza", "trackmania"]);
 const artFolders = {
   forza: "scene-speed",
@@ -394,7 +399,7 @@ function initializeCover() {
     source.textContent = run ? `Test 1 · ${run.modelName}` : "Gameplay recording";
     const demo = demos[game];
     video.src = run ? testVideoUrl(run)
-      : `/assets/demos/${encodeURIComponent(game)}.mp4?v=${demo.revision}`;
+      : previewSources[game] ?? `/assets/demos/${encodeURIComponent(game)}.mp4?v=${demo.revision}`;
     video.preload = "metadata";
     video.load();
     play();
