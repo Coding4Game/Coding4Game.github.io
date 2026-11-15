@@ -4,9 +4,10 @@ import { playableUrl } from "/arcade/playable.js?v=duel";
 
 const VIDEO_START = 4;
 const PREVIEW_SECONDS = 7;
-const HOVER_HIGHLIGHT_MS = 340;
+const HOVER_HIGHLIGHT_MS = 200;
 const PREVIEW_CLOSE_MS = 1000;
 const PREVIEW_FADE_MS = 140;
+const IDLE_ART_DELAY_MS = 800;
 const previewSources = {
   "black-myth": "/assets/demos/black-myth-highlight-10b72986b5a1.mp4",
   overcooked: "/assets/demos/overcooked-highlight-5dce6a40f9bc.mp4",
@@ -237,10 +238,16 @@ function initializeCover() {
   let activeArtwork = artwork;
   let featureRequest = 0;
   let idleRequest = 0;
+  let idleTimer = 0;
+  let loadingIdle = false;
   let usingDemo = false;
   let retireTimer = 0;
   const evidence = new Map();
   const firstMotion = new Set([...Object.keys(artFolders), "balatro"]);
+  const idleFigures = [
+    ...figures.filter((link) => firstMotion.has(link.dataset.game)),
+    ...figures.filter((link) => !firstMotion.has(link.dataset.game)),
+  ];
 
   async function loadIdleLayer(link, request) {
     const frame = link.querySelector(".cover-idle");
@@ -271,7 +278,7 @@ function initializeCover() {
     const path = artPath(game, "idle");
     if (frame.getAttribute("src") === path) return;
     const animated = new Image();
-    animated.fetchPriority = firstMotion.has(link.dataset.game) ? "high" : "low";
+    animated.fetchPriority = "low";
     animated.src = path;
     try {
       await animated.decode();
@@ -282,6 +289,26 @@ function initializeCover() {
     animated.className = frame.className;
     animated.alt = "";
     frame.replaceWith(animated);
+  }
+
+  function scheduleIdleLayers() {
+    window.clearTimeout(idleTimer);
+    if (loadingIdle || current || highlighted || !stage.hasAttribute("data-animated")) return;
+    const request = idleRequest;
+    idleTimer = window.setTimeout(async () => {
+      loadingIdle = true;
+      try {
+        for (const link of idleFigures) {
+          if (request !== idleRequest || current || highlighted) return;
+          if (link.querySelector(".cover-idle") instanceof HTMLImageElement) {
+            await loadIdleLayer(link, request);
+          }
+        }
+      } finally {
+        loadingIdle = false;
+        if (request !== idleRequest) scheduleIdleLayers();
+      }
+    }, IDLE_ART_DELAY_MS);
   }
 
   async function updateIdleMotion() {
@@ -310,9 +337,7 @@ function initializeCover() {
     }
     if (request !== idleRequest) return;
     stage.setAttribute("data-animated", "");
-    for (const link of figures) {
-      if (link.querySelector(".cover-idle") instanceof HTMLImageElement) loadIdleLayer(link, request);
-    }
+    scheduleIdleLayers();
   }
 
   function positionArtwork(link, animate, frame = overlay.getBoundingClientRect()) {
@@ -415,6 +440,7 @@ function initializeCover() {
     window.clearTimeout(highlightTimer);
     highlighted?.removeAttribute("data-highlighted");
     highlighted = null;
+    if (!current) scheduleIdleLayers();
   }
 
   function cancelClose() {
@@ -452,6 +478,7 @@ function initializeCover() {
     };
     if (delay) retireTimer = window.setTimeout(releaseMedia, delay);
     else releaseMedia();
+    scheduleIdleLayers();
   }
 
   function stop(restoreFocus = false) {
@@ -511,12 +538,12 @@ function initializeCover() {
     title.textContent = link.getAttribute("aria-label");
     updatePreviewLinks(link);
     preview.hidden = false;
-    loadArtwork(link);
     const game = link.dataset.game;
     const hasDemo = Object.hasOwn(demos, game);
     const run = hasDemo ? undefined : evidence.get(game);
     if (hasDemo || run) loadVideo(game, run);
     else source.textContent = "Replay unavailable";
+    loadArtwork(link);
   }
 
   function previewIsHeld() {
@@ -552,7 +579,7 @@ function initializeCover() {
     const link = getLink(event.target);
     if (!link || link === hovered) return;
     hovered = link;
-    if (current) scheduleClose();
+    if (current && previewIsHeld()) holdPreview();
     else highlight(link);
   });
   gallery.addEventListener("pointerout", (event) => {

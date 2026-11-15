@@ -35,12 +35,10 @@ function syncHomeNavigation() {
 syncHomeNavigation();
 addEventListener("hashchange", syncHomeNavigation);
 
-if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+if ("IntersectionObserver" in window) {
   const observer = new IntersectionObserver((entries) => {
     for (const entry of entries) {
-      if (entry.intersectionRatio < .65) continue;
-      entry.target.setAttribute("data-cue", "");
-      observer.unobserve(entry.target);
+      entry.target.toggleAttribute("data-cue", entry.intersectionRatio >= .65);
     }
   }, { threshold: .65 });
   document.querySelectorAll(".demo-cta").forEach((button) => observer.observe(button));
