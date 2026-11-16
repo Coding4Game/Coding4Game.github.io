@@ -7,7 +7,7 @@
   <title>Coding4Games</title>
   <link rel="icon" type="image/png" sizes="64x64" href="/assets/coding4games-icon.png">
   <link rel="stylesheet" href="/styles.css?v=leaderboard-entry">
-  <link rel="stylesheet" href="/comic.css?v=institution-logos">
+  <link rel="stylesheet" href="/comic.css?v=compact-footer">
   <link rel="stylesheet" href="/workflow.css?v=auto-replay">
   <link rel="stylesheet" href="/teaser.css?v=game-preview-icons">
   <link rel="stylesheet" href="/teaser-layout-start-flame.css">
@@ -222,16 +222,18 @@
   </main>
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <div class="footer-primary">
-        <a class="brand" href="/" aria-label="Coding4Games home"><img src="/assets/coding4games-logo.png" alt="" width="2176" height="723"></a>
-        <a href="#results">Leaderboard ↑</a>
-      </div>
+      <a class="brand" href="/" aria-label="Coding4Games home">
+        <picture>
+          <source media="(max-width: 580px)" srcset="/assets/coding4games-icon.png" width="64" height="64">
+          <img src="/assets/coding4games-logo.png" alt="" width="2176" height="723">
+        </picture>
+      </a>
       <ul class="footer-institutions" aria-label="Institutions">
         <li><a class="footer-institution footer-gvc" href="https://gvclab.github.io/">
           <img src="/assets/institutions/gvc-lab.png" alt="GVC Lab — Generative Visual Computing" width="880" height="180" loading="lazy" decoding="async">
         </a></li>
         <li><a class="footer-institution" href="https://arc.tencent.com/">
-          <img src="/assets/institutions/tencent-arc.png" alt="Tencent ARC Lab" width="155" height="50" loading="lazy" decoding="async">
+          <img src="/assets/institutions/tencent-arc-hd.png" alt="Tencent ARC Lab" width="652" height="216" loading="lazy" decoding="async">
         </a></li>
         <li><a class="footer-institution" href="https://www.bjtu.edu.cn/">
           <img src="/assets/institutions/beijing-jiaotong.png" alt="Beijing Jiaotong University" width="314" height="93" loading="lazy" decoding="async">
@@ -240,6 +242,7 @@
           <img src="/assets/institutions/nanjing-university.png" alt="Nanjing University" width="254" height="79" loading="lazy" decoding="async">
         </a></li>
       </ul>
+      <a class="footer-leaderboard" href="#results" aria-label="Leaderboard"><span class="footer-leaderboard-label">Leaderboard</span><span class="footer-leaderboard-arrow" aria-hidden="true">↑</span></a>
     </div>
   </footer>
 </body>

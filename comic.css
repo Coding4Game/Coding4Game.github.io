@@ -186,14 +186,21 @@
 .score-formula-arrow { color: var(--accent); font-size: 1.16em; line-height: 1; }
 
 .home-page .site-footer { background: #0b090e; }
-.home-page .footer-inner { display: grid; gap: 16px; padding-block: 18px 22px; }
-.footer-primary { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.home-page .footer-inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: clamp(4px, 1.5vw, 24px);
+  min-height: 64px;
+  padding-block: 6px;
+}
+.home-page .footer-inner .brand { width: clamp(82px, 9vw, 112px); }
 .footer-institutions {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-self: center;
+  width: min(100%, 760px);
   margin: 0;
-  padding: 8px 0 0;
-  border-top: 1px solid var(--line);
+  padding: 0;
   list-style: none;
 }
 .footer-institutions li + li { border-left: 1px solid var(--line); }
@@ -201,27 +208,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 76px;
+  min-height: 46px;
   height: 100%;
-  padding: 9px clamp(8px, 1.55vw, 21px);
+  padding: 5px clamp(3px, 1vw, 12px);
   outline-offset: -2px;
 }
 .footer-institution:is(:hover, :focus-visible) { background: #1a1420; }
 .footer-institution img {
   width: auto;
   height: auto;
-  max-width: min(100%, 226px);
-  max-height: 52px;
+  max-width: min(100%, 156px);
+  max-height: 34px;
   object-fit: contain;
 }
 .footer-gvc img { filter: invert(1) hue-rotate(180deg); }
+.footer-leaderboard { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 44px; }
+.footer-leaderboard-arrow { font-size: 1.15em; }
 
-@media (max-width: 720px) {
-  .footer-institutions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .footer-institutions li:nth-child(odd) { border-left: 0; }
-  .footer-institutions li:nth-child(n + 3) { border-top: 1px solid var(--line); }
-  .footer-institution { min-height: 68px; }
-  .footer-institution img { max-height: 44px; }
+@media (max-width: 580px) {
+  .home-page .footer-inner { min-height: 56px; }
+  .home-page .footer-inner .brand { width: 27px; aspect-ratio: 1; }
+  .footer-leaderboard { width: 29px; }
+  .footer-leaderboard-label { display: none; }
+  .footer-institution img { max-height: 27px; }
 }
 
 @media (max-width: 620px) {
