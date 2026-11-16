@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="/teaser-layout-start-flame.css">
   <link rel="stylesheet" href="/arcade/playable.css?v=comic">
   <link rel="preload" as="image" href="/assets/game-cover/scene-speed/still/forza.webp">
-  <script type="module" src="/teaser.js?v=preview-escape"></script>
+  <script type="module" src="/teaser.js?v=clearer-artwork"></script>
   <script type="module" src="/leaderboard.js?v=demo-loop"></script>
   <script type="module" src="/workflow.js?v=auto-replay"></script>
 </head>
@@ -32,8 +32,11 @@
           <div class="cover-window" id="cover-window">
             <div class="cover-pan" id="cover-pan">
               <div class="cover-artboard">
-                <img class="cover-art" src="/assets/game-cover/scene-start-flame/cover.webp" width="1672" height="941" alt="Fifteen games in a single illustrated street scene" fetchpriority="high">
-                <img class="cover-plate" src="/assets/game-cover/scene-start-flame/street.webp" width="1672" height="941" alt="" decoding="async">
+                <img class="cover-art" src="/assets/game-cover/scene-detail/cover-small.webp"
+                  srcset="/assets/game-cover/scene-detail/cover-small.webp 1672w, /assets/game-cover/scene-detail/cover.webp 3344w"
+                  sizes="(max-width: 719px) 100vw, (min-aspect-ratio: 1672/941) 100vw, 177.7svh"
+                  width="1672" height="941" alt="Fifteen games in a single illustrated street scene" fetchpriority="high">
+                <img class="cover-plate" src="/assets/game-cover/scene-detail/street.webp" width="1672" height="941" alt="" decoding="async">
                 <nav class="cover-gallery" aria-label="Explore 15 benchmark games">
                   <a class="cover-game cover-figure" data-side="left" data-game="forza" href="/results.html?game=forza" aria-label="Forza Horizon 5"><img class="cover-idle" alt="" decoding="async"></a>
                   <a class="cover-game cover-figure" data-side="left" data-game="trackmania" href="/results.html?game=trackmania" aria-label="Trackmania"><img class="cover-idle" alt="" decoding="async"></a>

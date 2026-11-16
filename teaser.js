@@ -19,6 +19,10 @@ const compactPreviewIcons = new Set([
   "nba-2k25", "palworld", "sekiro", "trackmania",
 ]);
 const videoArtwork = new Set(["forza", "trackmania"]);
+const detailedSceneArtwork = new Set([
+  "battleblock", "black-myth", "brotato", "kingdom-rush",
+  "kof98", "palworld", "riders-republic", "sekiro",
+]);
 const artFolders = {
   balatro: "scene-cards",
   forza: "scene-speed",
@@ -31,6 +35,9 @@ const artFolders = {
 };
 
 function artPath(game, variant, extension = "webp") {
+  if ((variant === "still" || variant === "idle") && detailedSceneArtwork.has(game)) {
+    return `/assets/game-cover/scene-detail/${variant}/${game}.${extension}`;
+  }
   const folder = artFolders[game] ?? "scene-actions";
   return `/assets/game-cover/${folder}/${variant}/${game}.${extension}`;
 }
