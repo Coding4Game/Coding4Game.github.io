@@ -74,6 +74,37 @@ function rankRow(model) {
   return row;
 }
 
+function animateRankRows(rows) {
+  if (!("IntersectionObserver" in window)) return;
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.intersectionRatio < .55) continue;
+      entry.target.setAttribute("data-score-visible", "");
+      observer.unobserve(entry.target);
+    }
+  }, { threshold: .55 });
+
+  function arm() {
+    observer.disconnect();
+    observer.takeRecords();
+    for (const row of rows.rows) {
+      row.removeAttribute("data-score-visible");
+      observer.observe(row);
+    }
+  }
+
+  rows.setAttribute("data-animate-scores", "");
+  arm();
+  addEventListener("hashchange", () => {
+    if (location.hash === "#results") arm();
+  });
+  document.addEventListener("click", (event) => {
+    if (location.hash !== "#results" || event.button !== 0 || event.defaultPrevented ||
+        event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    if (event.target instanceof Element && event.target.closest('a[href="#results"]')) arm();
+  }, { capture: true });
+}
+
 function gameLink(game) {
   const item = element("li", "game-panel");
   const link = element("a", "game-card");
@@ -129,7 +160,9 @@ async function initialize() {
   const { runs } = await get("/api/results");
   const { standings, games } = summarizeResults(runs);
   byId("leaderboard-description").textContent = `Mean score across ${games.length} games`;
-  byId("leaderboard-rows").replaceChildren(...standings.map(rankRow));
+  const rows = byId("leaderboard-rows");
+  rows.replaceChildren(...standings.map(rankRow));
+  animateRankRows(rows);
   const list = byId("game-list");
   list.replaceChildren(...games.map(gameLink));
   revealPanels(list);

@@ -6,15 +6,15 @@
   <meta name="description" content="Coding4Games ranks coding agents on the programs they develop for Windows games.">
   <title>Coding4Games</title>
   <link rel="icon" type="image/png" sizes="64x64" href="/assets/coding4games-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=hidden-scrollbars">
-  <link rel="stylesheet" href="/comic.css?v=dark-footer">
+  <link rel="stylesheet" href="/styles.css?v=leaderboard-entry">
+  <link rel="stylesheet" href="/comic.css?v=institution-logos">
   <link rel="stylesheet" href="/workflow.css?v=auto-replay">
   <link rel="stylesheet" href="/teaser.css?v=game-preview-icons">
   <link rel="stylesheet" href="/teaser-layout-start-flame.css">
   <link rel="stylesheet" href="/arcade/playable.css?v=comic">
   <link rel="preload" as="image" href="/assets/game-cover/scene-speed/still/forza.webp">
   <script type="module" src="/teaser.js?v=clearer-artwork"></script>
-  <script type="module" src="/leaderboard.js?v=demo-loop"></script>
+  <script type="module" src="/leaderboard.js?v=leaderboard-entry"></script>
   <script type="module" src="/workflow.js?v=auto-replay"></script>
 </head>
 <body class="home-page">
@@ -222,13 +222,24 @@
   </main>
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <div class="footer-identity">
+      <div class="footer-primary">
         <a class="brand" href="/" aria-label="Coding4Games home"><img src="/assets/coding4games-logo.png" alt="" width="2176" height="723"></a>
-        <a class="footer-lab" href="https://gvclab.github.io/">
-          <img src="/assets/gvc-lab-logo.png" alt="GVC Lab" width="1365" height="374" loading="lazy" decoding="async">
-        </a>
+        <a href="#results">Leaderboard ↑</a>
       </div>
-      <a href="#results">Leaderboard ↑</a>
+      <ul class="footer-institutions" aria-label="Institutions">
+        <li><a class="footer-institution footer-gvc" href="https://gvclab.github.io/">
+          <img src="/assets/institutions/gvc-lab.png" alt="GVC Lab — Generative Visual Computing" width="880" height="180" loading="lazy" decoding="async">
+        </a></li>
+        <li><a class="footer-institution" href="https://arc.tencent.com/">
+          <img src="/assets/institutions/tencent-arc.png" alt="Tencent ARC Lab" width="155" height="50" loading="lazy" decoding="async">
+        </a></li>
+        <li><a class="footer-institution" href="https://www.bjtu.edu.cn/">
+          <img src="/assets/institutions/beijing-jiaotong.png" alt="Beijing Jiaotong University" width="314" height="93" loading="lazy" decoding="async">
+        </a></li>
+        <li><a class="footer-institution" href="https://www.nju.edu.cn/">
+          <img src="/assets/institutions/nanjing-university.png" alt="Nanjing University" width="254" height="79" loading="lazy" decoding="async">
+        </a></li>
+      </ul>
     </div>
   </footer>
 </body>
