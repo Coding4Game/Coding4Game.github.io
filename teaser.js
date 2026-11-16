@@ -660,8 +660,13 @@ function initializeCover() {
       behavior: motion.matches ? "instant" : "smooth",
     });
   });
-  stage.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && (current || highlighted)) stop(true);
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || event.defaultPrevented || (!current && !highlighted)) return;
+
+    event.preventDefault();
+    const hoveredGame = hovered;
+    stop(preview.contains(document.activeElement));
+    hovered = hoveredGame;
   });
 
   video.addEventListener("loadedmetadata", () => {
