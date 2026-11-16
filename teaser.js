@@ -7,7 +7,8 @@ const PREVIEW_SECONDS = 7;
 const HOVER_HIGHLIGHT_MS = 200;
 const PREVIEW_CLOSE_MS = 1000;
 const PREVIEW_FADE_MS = 140;
-const IDLE_ART_DELAY_MS = 800;
+const IDLE_ART_DELAY_MS = 150;
+const IDLE_LOAD_CONCURRENCY = 3;
 const previewSources = {
   "black-myth": "/assets/demos/black-myth-highlight-10b72986b5a1.mp4",
   overcooked: "/assets/demos/overcooked-highlight-5dce6a40f9bc.mp4",
@@ -27,7 +28,7 @@ const artFolders = {
   balatro: "scene-cards",
   forza: "scene-speed",
   "nba-2k25": "scene-wheels-court",
-  trackmania: "scene-start-flame",
+  trackmania: "scene-exhaust",
   overcooked: "scene-effects",
   sekiro: "scene-drawn-motion",
   "black-myth": "scene-corner",
@@ -49,6 +50,15 @@ function prepareClip(clip, path) {
   clip.disablePictureInPicture = true;
   clip.src = path;
   return clip.play();
+}
+
+function hasTransparentCorner(clip) {
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 1;
+  const context = canvas.getContext("2d");
+  if (!context) return false;
+  context.drawImage(clip, 0, 0, 1, 1, 0, 0, 1, 1);
+  return context.getImageData(0, 0, 1, 1).data[3] < 12;
 }
 
 function closeUp(game, side, board, nativeWidth, nativeHeight, portrait) {
@@ -265,27 +275,27 @@ function initializeCover() {
   async function loadIdleLayer(link, request) {
     const frame = link.querySelector(".cover-idle");
     const game = link.dataset.game;
-    if (videoArtwork.has(game) && !(frame instanceof HTMLVideoElement)) {
+    const checkTransparency = detailedSceneArtwork.has(game);
+    if (videoArtwork.has(game) || checkTransparency) {
       const clip = document.createElement("video");
       try {
         clip.className = frame.className;
         clip.setAttribute("aria-hidden", "true");
-        frame.after(clip);
         clip.hidden = true;
+        frame.after(clip);
         await prepareClip(clip, artPath(game, "idle", "webm"));
-        if (request !== idleRequest) {
-          clip.pause();
-          clip.remove();
+        if (request === idleRequest && (!checkTransparency || hasTransparentCorner(clip))) {
+          clip.hidden = false;
+          frame.remove();
           return;
         }
-        clip.hidden = false;
-        frame.remove();
-        return;
       } catch {
-        clip.removeAttribute("src");
-        clip.load();
-        clip.remove();
+        // The animated image is the fallback for unsupported video playback.
       }
+      clip.pause();
+      clip.removeAttribute("src");
+      clip.load();
+      clip.remove();
     }
     if (request !== idleRequest) return;
     const path = artPath(game, "idle");
@@ -310,13 +320,17 @@ function initializeCover() {
     const request = idleRequest;
     idleTimer = window.setTimeout(async () => {
       loadingIdle = true;
-      try {
-        for (const link of idleFigures) {
-          if (request !== idleRequest || current || highlighted) return;
-          if (link.querySelector(".cover-idle") instanceof HTMLImageElement) {
-            await loadIdleLayer(link, request);
-          }
+      const pending = idleFigures.filter((link) => {
+        const frame = link.querySelector(".cover-idle");
+        return frame instanceof HTMLImageElement && frame.getAttribute("src") !== artPath(link.dataset.game, "idle");
+      });
+      const loadNext = async () => {
+        while (pending.length && request === idleRequest && !current && !highlighted) {
+          await loadIdleLayer(pending.shift(), request);
         }
+      };
+      try {
+        await Promise.allSettled(Array.from({ length: Math.min(IDLE_LOAD_CONCURRENCY, pending.length) }, loadNext));
       } finally {
         loadingIdle = false;
         if (request !== idleRequest) scheduleIdleLayers();

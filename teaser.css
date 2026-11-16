@@ -245,29 +245,14 @@
 }
 @media (prefers-reduced-motion: no-preference) {
   .cover-brand-actions .demo-cta[data-cue]::after { content: none; }
-  .demo-cta[data-cue] .cover-challenge-border {
-    animation: cover-challenge-streaks var(--demo-cue-cycle) linear 140ms infinite;
-  }
+  .demo-cta[data-cue] .cover-challenge-border { opacity: 1; }
   .demo-cta[data-cue] .cover-challenge-border rect {
-    animation: cover-challenge-trace var(--demo-cue-cycle) linear 140ms infinite;
+    animation: cover-challenge-trace var(--demo-cue-cycle) linear infinite;
   }
-  .cover-brand-actions .demo-cta[data-cue] .demo-cta-icon svg {
-    animation: cover-challenge-controller var(--demo-cue-cycle) ease-in-out 140ms infinite;
-  }
-}
-@keyframes cover-challenge-streaks {
-  0%, 27%, 100% { opacity: 0; }
-  2%, 22% { opacity: 1; }
 }
 @keyframes cover-challenge-trace {
-  0% { stroke-dashoffset: var(--trace-start, 0); }
-  25%, 100% { stroke-dashoffset: var(--trace-end, -100); }
-}
-@keyframes cover-challenge-controller {
-  0%, 24%, 100% { transform: none; color: #fff0d6; }
-  6% { transform: translateY(-4px) rotate(-16deg) scale(1.14); color: #9ef3ff; }
-  12% { transform: translateY(-3px) rotate(-8deg) scale(1.14); color: #d7fcff; }
-  17% { transform: translateY(1px) rotate(7deg) scale(1.06); color: #ffe7ac; }
+  from { stroke-dashoffset: var(--trace-start, 0); }
+  to { stroke-dashoffset: var(--trace-end, -100); }
 }
 .cover-brand-actions .cover-resource {
   min-height: 44px;
