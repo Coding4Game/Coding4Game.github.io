@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Experiment evidence | Coding4Games</title>
-  <link rel="stylesheet" href="/styles.css?v=hidden-scrollbars">
+  <link rel="stylesheet" href="/styles.css?v=inline-facts">
   <link rel="stylesheet" href="/comic.css?v=evidence">
   <script type="module" src="/experiment.js?v=recovered-evidence"></script>
 </head>
@@ -42,7 +42,7 @@
       </div>
 
         <div class="evidence-workspace">
-          <p class="evidence-note" id="artifact-note" hidden></p>
+          <p id="artifact-note" hidden></p>
           <div class="evidence-tabs" role="tablist" aria-label="Experiment evidence">
             <button type="button" role="tab" id="tab-tests" aria-controls="panel-tests" aria-selected="false" tabindex="-1" data-tab="tests"><span aria-hidden="true">▶</span> Test videos</button>
             <button type="button" role="tab" id="tab-script" aria-controls="panel-script" aria-selected="false" tabindex="-1" data-tab="script"><span aria-hidden="true">&lt;/&gt;</span> Policy script</button>
@@ -117,8 +117,8 @@
             <div id="program-fact"><dt id="program-label">Frozen program ID</dt><dd><code id="program-id"></code></dd></div>
             <div id="test-fact"><dt>Test scores</dt><dd id="recorded-tests"></dd></div>
             <div id="usage-fact" hidden><dt>Requests with unknown usage</dt><dd id="unknown-usage"></dd></div>
+            <div id="floor-note" hidden><dt>Development usage</dt><dd>Below the common comparison floor</dd></div>
           </dl>
-          <p id="floor-note" class="evidence-note" hidden>Recorded development usage fell below the common comparison floor.</p>
         </details>
     </div>
   </main>

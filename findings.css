@@ -161,7 +161,7 @@
 .outcome-script { background: #ffa36e; }
 .outcome-gui { background: #82dbe4; }
 .outcome-ties { border: 1px solid #bdabbd; }
-.finding-record p { margin-top: .25rem; font-size: .88rem; }
+.finding-record p { margin-top: .25rem; }
 .finding-links { display: flex; flex-wrap: wrap; gap: .35rem 1.3rem; }
 .finding-links a { display: inline-flex; align-items: center; gap: .38rem; color: #ffb28a; font-weight: 600; text-underline-offset: .18em; }
 .finding-links a:is(:hover, :focus-visible) { text-decoration: underline; }
@@ -185,7 +185,6 @@
 .grounding-stack > span { flex: var(--share) 1 0; min-width: 0; padding-block: .16rem; text-align: center; font: italic 800 1rem/1.25 var(--display); }
 .grounding-stack > span + span { box-shadow: inset 1px 0 #17121c; }
 .grounding-gap { color: var(--ink); background: repeating-linear-gradient(125deg, #342d39 0 4px, #504454 4px 6px); }
-.grounding-note { color: #c8bacd; font-size: .85rem; margin-top: .8rem; }
 @media (max-width: 760px) {
   .grounding-list > li { grid-template-columns: 1fr; gap: .2rem; }
 }
@@ -233,8 +232,8 @@
 .budget-key b { color: var(--ink); font-size: 1.25em; }
 .budget-opus { color: #ffa36e; }
 .budget-sol { color: #82dbe4; }
-.budget-measure { color: #c8bacd; font-size: .9rem; }
-.budget-limits { margin-top: .5rem; font-size: .9rem; }
+.budget-measure { color: inherit; }
+.budget-limits { margin-top: .5rem; }
 .budget-limits strong { display: inline-block; margin-left: .35em; }
 .budget-takeaway { margin: 0 0 .75rem; color: var(--ink); line-height: 1.45; }
 .budget-game { padding: .9rem 0 .65rem; margin-top: .4rem; border-top: 1px solid #49394f; }

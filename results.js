@@ -251,6 +251,7 @@ function showTable() {
 
 function showScoring(gameId) {
   const [formula, ...steps] = gameScoring[gameId];
+  steps.push(["Game result", "Current runs average three independent tests. Earlier runs use their recorded scores."]);
   byId("game-scoring-formula").textContent = formula;
   byId("game-scoring-steps").replaceChildren(...steps.map(([label, explanation]) => {
     const row = element("div");

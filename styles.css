@@ -253,11 +253,8 @@ input[type="search"]::placeholder { color: var(--muted); }
 .result-point { position: absolute; top: 50%; width: 8px; height: 8px; transform: translate(-50%, -50%); border: 1px solid currentColor; border-radius: 50%; background: currentColor; animation: plot-point 550ms ease-out var(--plot-delay, 0ms) both; }
 @keyframes plot-point { 0%, 58% { opacity: 0; transform: translate(-50%, -50%) scale(.6); } 84% { transform: translate(-50%, -50%) scale(1.4); } 100% { opacity: 1; transform: translate(-50%, -50%); } }
 .under-review .result-point { background: var(--surface); }
-.plot-legend { font-size: .77rem; color: var(--muted); }
 .legend-pending { display: flex; align-items: center; gap: 7px; }
 .legend-pending::before { width: 8px; height: 8px; content: ""; border: 1px solid var(--accent); border-radius: 50%; }
-.chart-foot { display: flex; align-items: center; min-height: 46px; gap: 8px 20px; margin-top: auto; padding: 10px 17px; border-top: 1px solid var(--line); }
-.evidence-note { color: var(--muted); font-size: .77rem; }
 #artifact-note { margin-bottom: 12px; }
 .text-button, .text-link { padding: 0; border: 0; background: none; color: var(--accent); font-size: .84rem; font-weight: 680; }
 .text-button:hover, .text-link:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -463,7 +460,7 @@ a.test-score:hover { background: var(--tint); border-color: var(--accent); color
   .workflow-steps { grid-template-columns: 1fr; gap: 18px; }
   .workflow-steps li { padding: 12px 15px; }
   .workflow-steps li + li::before { left: 26px; top: -19px; content: "↓"; }
-  .chart-heading, .chart-area, .chart-foot { padding-inline: 12px; }
+  .chart-heading, .chart-area { padding-inline: 12px; }
   .plot { --plot-columns: minmax(119px, 1.1fr) minmax(0, 1.7fr) minmax(70px, .65fr); }
   .plot-scale, .plot-row { column-gap: 6px; }
   .experiment-table { min-width: 525px; }
