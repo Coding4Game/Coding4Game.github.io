@@ -1,6 +1,8 @@
+import { paperGameOrder, paperScores } from "/paper-results.js?v=gvc-paper";
+
 export const formatRankScore = new Intl.NumberFormat("en-US", {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
 });
 
 export function recordedScore(run) {
@@ -27,8 +29,17 @@ export function summarizeResults(runs) {
     const values = scored.map(recordedScore);
     const low = Math.min(...values);
     const high = Math.max(...values);
+    const paperGameIndex = paperGameOrder.indexOf(game.id);
+    const usePaperScale = paperGameIndex >= 0 && scored.every((run) => {
+      const formal = run.model === "astra" || run.model === "opus";
+      const paperRunId = formal ? `${game.id}-${run.model}` : `${game.id}-${run.model}-paper`;
+      return run.id === paperRunId && Object.hasOwn(paperScores, run.model)
+        && (formal ? run.batch === "current" && run.version === "formal" : run.batch === "paper");
+    });
     for (const run of scored) {
-      const score = low === high ? 50 : 100 * (recordedScore(run) - low) / (high - low);
+      const score = usePaperScale
+        ? paperScores[run.model][paperGameIndex]
+        : low === high ? 50 : 100 * (recordedScore(run) - low) / (high - low);
       scaled.set(run.id, score);
       models.get(run.model).points.push(score);
     }

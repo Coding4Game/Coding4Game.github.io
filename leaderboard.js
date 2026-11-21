@@ -1,7 +1,8 @@
 import {
   browseUrl, byId, element, experimentUrl, gameMedia, get, testRuns,
 } from "/common.js?v=native-videos";
-import { formatRankScore, summarizeResults } from "/ranking.js";
+import { formatRankScore, summarizeResults } from "/ranking.js?v=gvc-paper";
+import { paperReferenceScores } from "/paper-results.js?v=gvc-paper";
 import { playableUrl } from "/arcade/playable.js?v=duel";
 
 const modelIcons = new Map([
@@ -34,6 +35,12 @@ function syncHomeNavigation() {
 
 syncHomeNavigation();
 addEventListener("hashchange", syncHomeNavigation);
+
+byId("leaderboard-references")?.replaceChildren(...paperReferenceScores.map(({ name, mean }) => {
+  const reference = element("div");
+  reference.append(element("dt", "", name), element("dd", "", formatRankScore.format(mean)));
+  return reference;
+}));
 
 if ("IntersectionObserver" in window) {
   const observer = new IntersectionObserver((entries) => {
@@ -159,7 +166,7 @@ async function initialize() {
   }
   const { runs } = await get("/api/results");
   const { standings, games } = summarizeResults(runs);
-  byId("leaderboard-description").textContent = `Mean score across ${games.length} games`;
+  byId("leaderboard-description").textContent = `Mean normalized score across ${games.length} games`;
   const rows = byId("leaderboard-rows");
   rows.replaceChildren(...standings.map(rankRow));
   animateRankRows(rows);
