@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play five browser versions of Coding4Games benchmark tasks against a scripted opponent.">
+  <title>Can you beat the agent? | Coding4Games</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../comic.css">
+  <link rel="stylesheet" href="./playable.css?v=comic">
+  <script type="module" src="./playable.js?v=duel"></script>
+  <link rel="stylesheet" href="/interactions.css?v=panel-motion">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner playable-nav">
+      <a class="brand" href="../" aria-label="Coding4Games home"><img src="../assets/coding4games-logo.png" alt="" width="2176" height="723"></a>
+      <nav aria-label="Main navigation"><a href="../#results">Leaderboard</a><a href="../#games">Games</a><a href="./play.html" aria-current="page">Play</a></nav>
+    </div>
+  </header>
+  <main id="main" class="wrap playable-page">
+    <section class="duel-hero" aria-labelledby="duel-title">
+      <div class="duel-intro">
+        <h1 id="duel-title">Can you beat <span>the agent?</span></h1>
+        <div class="duel-actions">
+          <a class="button duel-start" id="featured-play" href="#pick-a-game">Play Ring Out ’26 <span aria-hidden="true">▸</span></a>
+          <a class="duel-pick" href="#pick-a-game">Choose a game <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <figure class="duel-preview">
+        <div class="duel-screen">
+          <video id="duel-video" width="864" height="486" poster="./duel/ring-out.webp" data-src="./duel/ring-out.webm" preload="none" muted playsinline aria-hidden="true"></video>
+        </div>
+        <div class="duel-versus" aria-hidden="true"><span>You</span><b>VS</b><span>Agent</span></div>
+        <figcaption><strong>Ring Out ’26</strong><span class="info-tag">Demo replay</span><button type="button" class="duel-replay" id="duel-replay" hidden>Play clip</button></figcaption>
+      </figure>
+    </section>
+    <section id="pick-a-game" aria-labelledby="pick-a-game-title">
+      <header class="playable-heading">
+        <h2 id="pick-a-game-title">Pick your challenge</h2>
+        <div class="info-tags"><span class="info-tag">Keyboard + mouse</span><span class="info-tag">Gamepad on select games</span></div>
+      </header>
+      <ul class="playable-grid" id="playable-games" aria-label="Playable games"></ul>
+      <noscript><p>Enable JavaScript to play the demos.</p></noscript>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="wrap footer-inner"><a class="brand" href="../" aria-label="Coding4Games home"><img src="../assets/coding4games-logo.png" alt="" width="2176" height="723"></a><a href="../#games">All benchmark games</a></div></footer>
+</body>
+</html>

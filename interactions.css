@@ -1,0 +1,179 @@
+:root {
+  --panel-ease: cubic-bezier(.22,.72,.22,1);
+  --panel-time: 240ms;
+}
+
+.info-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: .45rem;
+}
+.info-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35em;
+  min-height: 1.85rem;
+  padding: .18em .65em;
+  border: 1px solid #59475f;
+  border-radius: 2px;
+  background: #241c2a;
+  color: #efdfeb;
+  font: 600 1rem/1.3 Inter, system-ui, sans-serif;
+  text-align: center;
+}
+.finding-chart > .info-tags, .budget-figure > .info-tags { margin: .75rem auto; }
+#leaderboard-description { margin-top: .8rem; }
+.info-tags .info-tag strong { color: #ffd3aa; }
+.findings-heading, .leaderboard-heading, .directory-heading, .workflow-heading,
+.game-test-heading, .browse-heading, .playable-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .85rem;
+  text-align: center;
+}
+.findings-tally { width: min(100%, 23rem); }
+.finding-number, .finding-glyph { justify-self: center; }
+.finding-list summary::after { justify-self: end; margin-inline-end: .3rem; }
+.finding-line { text-align: start; }
+.finding-evidence { width: calc(100% - 2rem); margin-inline: auto; }
+.finding-chart, .finding-evidence > p { margin-inline: auto; }
+.finding-evidence > p { max-width: 70ch; }
+.finding-chart figcaption, .budget-figure figcaption, .budget-game h4,
+.finding-record, .budget-takeaway { text-align: center; }
+.grounding-key, .budget-key, .interaction-key, .finding-links,
+.game-test-models, .model-summary, .duel-actions, .brief-links { justify-content: center; }
+.grounding-key > div, .interaction-key span, .budget-key span { font-size: 1rem; }
+.grounding-key dt { display: grid; min-width: 2rem; min-height: 1.75rem; place-items: center; }
+.run-overview, .table-heading, .trace-entry-head, .trace-entry-actions { align-items: center; }
+.workflow-scoring, .workflow-scoring p { justify-content: center; align-items: center; }
+.score-details dt { text-align: center; }
+.duel-intro, .brief-content, .experiment-heading > div:first-child { text-align: center; }
+.brief-panels p { text-align: start; }
+.evidence-tabs, .test-option, .model-summary > div, .playable-caption,
+.playable-results, .run-stats > div { justify-content: center; align-items: center; text-align: center; }
+.playable-caption { justify-items: center; }
+.playable-results { justify-self: center; }
+.evidence-tabs button { justify-content: center; }
+.run-stats dt, .trace-controls label > span, .result-switch > span, .experiment-switch > span {
+  font-size: .95rem;
+  text-align: center;
+}
+.result-switch, .experiment-switch { display: block; }
+.score-details dt, .score-details dd, .score-details code, .table-heading p,
+.playable-results, .trace-summary, .run-fact-list, .trace-log-head span,
+.script-controls span[role="status"], .frame-dialog figcaption, .trace-frame figcaption { font-size: 1rem; }
+.table-heading p, .trace-frame figcaption { text-align: center; }
+.script-info, .script-info p, .video-meta { text-align: center; }
+.script-info .info-tag { margin-top: .45rem; color: #efdfeb; font-size: 1rem; }
+.video-meta, .script-controls { justify-content: center; }
+.frame-dialog figcaption { padding: .6rem 0 0; }
+.table-heading p { margin: 0; padding: .15rem .6rem; border-inline-start: 2px solid var(--ink-cyan); }
+.run-facts summary, .trial-list summary, .trace-disclosure summary, .trace-runtime > details > summary {
+  font-size: 1rem;
+}
+.run-facts summary, .round-details summary { margin-inline: auto; }
+.round-details[open] > summary { margin-bottom: 0; }
+.round-details > .controls { padding-top: 1rem; }
+.duel-preview figcaption { justify-content: center; gap: .65rem; }
+.duel-preview figcaption strong { font: italic 800 1.32rem/1.2 var(--display); }
+.duel-replay { font-size: 1rem; }
+.cover-preview-source { display: inline-flex; align-items: center; min-height: 1.7rem; padding: .12em .55em; background: #151018db; }
+
+select:not([multiple]):not([size]) {
+  min-height: 44px;
+  border-radius: 2px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+@supports (appearance: base-select) and selector(::picker(select)) {
+  select:not([multiple]):not([size]), select:not([multiple]):not([size])::picker(select) { appearance: base-select; }
+  select:not([multiple]):not([size]) {
+    display: grid;
+    grid-template-columns: .8rem minmax(0,1fr) .8rem;
+    align-items: center;
+    gap: .4rem;
+    padding-inline: .65rem;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+  select::before { content: ""; }
+  select::picker-icon {
+    width: .6rem;
+    height: .6rem;
+    margin: 0;
+    content: "";
+    border: solid var(--accent);
+    border-width: 0 2px 2px 0;
+    transform: translateY(-.13rem) rotate(45deg);
+  }
+  select:open { border-color: var(--accent); }
+  select:open::picker-icon { transform: translateY(.1rem) rotate(225deg); }
+  select::picker(select) {
+    max-height: min(48dvh, 24rem);
+    max-width: calc(100vw - 1rem);
+    margin-block: .25rem;
+    padding: .25rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    background: #201923;
+    color: var(--ink);
+    box-shadow: 0 5px 0 #09060bc4;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  select option {
+    position: relative;
+    justify-content: center;
+    min-height: 2.65rem;
+    padding: .45rem 1.5rem;
+    text-align: center;
+    font-size: 1rem;
+  }
+  select option::checkmark { position: absolute; inset-inline-start: .38rem; color: var(--accent); }
+  select option:checked { color: #ffccab; background: #3a2833; }
+  select option:is(:hover, :focus-visible) { background: #493646; outline-offset: -2px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :is(button, .text-link, .button, .entity-link, .playable-launch, select, summary) {
+    transition-property: background-color, border-color, color;
+    transition-duration: 150ms;
+  }
+  select::picker-icon { transition: transform var(--panel-time) var(--panel-ease); }
+  select::picker(select) {
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 160ms ease, transform 190ms var(--panel-ease),
+                display 190ms allow-discrete, overlay 190ms allow-discrete;
+  }
+  select:open::picker(select) { opacity: 1; transform: none; }
+  @starting-style { select:open::picker(select) { opacity: 0; transform: translateY(-5px); } }
+  @supports (interpolate-size: allow-keywords) and selector(details::details-content) {
+    details::details-content {
+      interpolate-size: allow-keywords;
+      block-size: 0;
+      overflow: clip;
+      opacity: 0;
+      transition: block-size var(--panel-time) var(--panel-ease), opacity 180ms ease,
+                  content-visibility var(--panel-time) allow-discrete;
+    }
+    details[open]::details-content { block-size: auto; opacity: 1; }
+  }
+  @supports not ((interpolate-size: allow-keywords) and selector(details::details-content)) {
+    details[open] > :not(summary) { animation: panel-arrive 180ms var(--panel-ease); }
+  }
+  .evidence-panel:not([hidden]), .frame-dialog[open] { animation: panel-arrive 200ms var(--panel-ease); }
+  @keyframes panel-arrive { from { opacity: 0; transform: translateY(5px); } }
+}
+@media (max-width: 720px) {
+  .run-overview, .run-stats, .script-toolbar, .table-heading, .chart-heading { justify-content: center; }
+  .script-toolbar, .chart-heading, .table-heading { text-align: center; }
+  .chart-links, .filters { margin-inline: auto; }
+  .evidence-tabs button { flex: 1 1 auto; }
+  .grounding-key dd { text-wrap: balance; }
+}

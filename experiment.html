@@ -6,7 +6,8 @@
   <title>Experiment evidence | Coding4Games</title>
   <link rel="stylesheet" href="/styles.css?v=inline-facts">
   <link rel="stylesheet" href="/comic.css?v=evidence">
-  <script type="module" src="/experiment.js?v=recovered-evidence"></script>
+  <script type="module" src="/experiment.js?v=panel-motion"></script>
+  <link rel="stylesheet" href="/interactions.css?v=panel-motion">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -52,7 +53,7 @@
           <section class="evidence-panel" id="panel-tests" role="tabpanel" aria-labelledby="tab-tests" hidden>
             <div class="test-options" id="test-options" role="group" aria-label="Choose an independent test"></div>
             <div class="video-frame"><video id="test-video" controls playsinline preload="metadata" aria-label="Independent test recording"></video></div>
-            <div class="video-meta"><p id="video-facts"></p><a id="video-link" class="text-link" target="_blank" rel="noopener">Open video ↗</a></div>
+            <div class="video-meta"><div class="info-tags" id="video-facts"></div><a id="video-link" class="text-link" target="_blank" rel="noopener">Open video ↗</a></div>
             <p id="video-error" class="inline-error" role="status" hidden></p>
           </section>
 
@@ -96,7 +97,7 @@
             <div class="script-toolbar">
               <div class="script-info">
                 <h2 id="submission-title">Final submission</h2>
-                <p id="submission-context">Frozen bundle used in the independent tests.</p>
+                <span class="info-tag" id="submission-context">Frozen for testing</span>
               </div>
               <div class="script-controls">
                 <label><span class="sr-only">Submitted source file</span><select id="file-select"></select></label>

@@ -166,7 +166,7 @@ async function initialize() {
   }
   const { runs } = await get("/api/results");
   const { standings, games } = summarizeResults(runs);
-  byId("leaderboard-description").textContent = `Mean normalized score across ${games.length} games`;
+  byId("leaderboard-games").textContent = `${games.length} games`;
   const rows = byId("leaderboard-rows");
   rows.replaceChildren(...standings.map(rankRow));
   animateRankRows(rows);

@@ -47,7 +47,7 @@ function showVideo() {
   byId("video-link").href = url;
   const facts = [`Independent test ${testNumber}`, `Score ${test.score === null ? "—" : formatScore.format(test.score)}`];
   if (test.tics !== null) facts.push(`${formatCount.format(test.tics)} game tics`);
-  byId("video-facts").textContent = facts.join(" · ");
+  byId("video-facts").replaceChildren(...facts.map((fact) => element("span", "info-tag", fact)));
   for (const button of byId("test-options").children) {
     button.setAttribute("aria-pressed", String(Number(button.dataset.test) === testNumber));
   }
@@ -202,7 +202,7 @@ async function initialize() {
     byId("artifact-note").textContent = experiment.archiveNote;
     byId("artifact-note").hidden = false;
     byId("submission-title").textContent = shared ? "Shared source file" : "Archived submission";
-    byId("submission-context").textContent = shared ? "File contents match the archived bundles." : "Source files verified against the frozen program manifest.";
+    byId("submission-context").textContent = shared ? "Matches archived bundles" : "Verified against frozen manifest";
   } else if (experiment.evidence === "Exclusions unresolved" && experiment.files.length) {
     byId("artifact-note").textContent = "Frozen script verified. The logs include the confirmed tests while tied exclusions are under review.";
     byId("artifact-note").hidden = false;

@@ -541,6 +541,7 @@ function initializeCover() {
   }
 
   function open(link, pin = false) {
+    if (current && current !== link) return;
     cancelClose();
     clearHighlight();
     window.clearTimeout(retireTimer);
@@ -553,7 +554,6 @@ function initializeCover() {
       return;
     }
 
-    current?.removeAttribute("aria-current");
     current = link;
     pinned = pin;
     stage.removeAttribute("data-video-ready");
@@ -596,13 +596,14 @@ function initializeCover() {
     closeTimer = window.setTimeout(() => {
       closeTimer = 0;
       if (!current || previewIsHeld()) return;
-      if (hovered) highlight(hovered);
-      else stop();
+      const underPointer = hovered;
+      stop();
+      hovered = underPointer;
     }, PREVIEW_CLOSE_MS);
   }
 
   function highlight(link) {
-    if (pinned || current === link || highlighted === link) return;
+    if (current || highlighted === link) return;
     cancelClose();
     clearHighlight();
     highlighted = link;
@@ -615,7 +616,7 @@ function initializeCover() {
     const link = getLink(event.target);
     if (!link || link === hovered) return;
     hovered = link;
-    if (current && previewIsHeld()) holdPreview();
+    if (current) scheduleClose();
     else highlight(link);
   });
   gallery.addEventListener("pointerout", (event) => {
@@ -639,6 +640,7 @@ function initializeCover() {
   gallery.addEventListener("focusin", (event) => {
     const link = getLink(event.target);
     if (!link || restoringFocus || !link.matches(":focus-visible")) return;
+    if (current && current !== link && !pinned) stop();
     centerSceneOn(link);
     focused = link;
     highlight(link);

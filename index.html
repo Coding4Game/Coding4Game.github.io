@@ -14,9 +14,10 @@
   <link rel="stylesheet" href="/teaser-layout-start-flame.css">
   <link rel="stylesheet" href="/arcade/playable.css?v=comic">
   <link rel="preload" as="image" href="/assets/game-cover/scene-speed/still/forza.webp">
-  <script type="module" src="/teaser.js?v=fast-idle"></script>
-  <script type="module" src="/leaderboard.js?v=gvc-paper"></script>
+  <script type="module" src="/teaser.js?v=preview-lock"></script>
+  <script type="module" src="/leaderboard.js?v=scoring-tags"></script>
   <script type="module" src="/workflow.js?v=auto-replay"></script>
+  <link rel="stylesheet" href="/interactions.css?v=panel-motion">
 </head>
 <body class="home-page">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -132,7 +133,7 @@
       <div class="leaderboard-heading">
         <div>
           <h2 id="leaderboard-title" class="comic-section-title">Leaderboard</h2>
-          <p id="leaderboard-description">Mean normalized score across 15 games</p>
+          <div class="info-tags" id="leaderboard-description"><span class="info-tag">Mean normalized score</span><span class="info-tag" id="leaderboard-games">15 games</span></div>
         </div>
         <a class="text-link" href="#games">Browse games <span aria-hidden="true">↓</span></a>
       </div>
@@ -227,7 +228,7 @@
             <div class="finding-evidence">
               <figure id="grounding-share" class="finding-chart" aria-labelledby="grounding-caption">
                 <figcaption id="grounding-caption">How final scripts choose actions</figcaption>
-                <p>Share of each model’s evaluated scripts at each level</p>
+                <div class="info-tags"><span class="info-tag">Evaluated scripts (%)</span><span class="info-tag">By model</span></div>
                 <dl class="grounding-key">
                   <div><dt class="level-0">G0</dt><dd>Fixed actions</dd></div>
                   <div><dt class="level-1">G1</dt><dd>Timers or counters</dd></div>
@@ -394,7 +395,7 @@
             <div class="finding-evidence">
               <figure class="finding-chart" id="interaction-share" aria-labelledby="interaction-caption">
                 <figcaption id="interaction-caption">Who supplied the game inputs?</figcaption>
-                <p class="interaction-unit">Share of game steps in one development run per model</p>
+                <div class="info-tags"><span class="info-tag">Game steps (%)</span><span class="info-tag">1 development run per model</span></div>
                 <div class="interaction-key" aria-hidden="true"><span>Agent playing directly</span><span>Agent running its script</span></div>
                 <ul class="interaction-list">
                   <li>
@@ -503,14 +504,14 @@
             <div class="finding-evidence">
               <figure class="budget-figure" id="budget-curves" aria-labelledby="budget-caption">
                 <figcaption id="budget-caption">The highest-scoring version came early in some runs and last in others.</figcaption>
-                <p class="budget-limits">Per-run limits <strong>15,000 game steps</strong> · <strong>25 million tokens</strong></p>
+                <div class="info-tags" aria-label="Per-run limits"><span class="info-tag">Step limit <strong>15,000</strong></span><span class="info-tag">Token limit <strong>25M</strong></span></div>
                 <div class="budget-key" aria-label="Legend">
                   <span><i class="budget-opus" aria-hidden="true"></i>Claude Opus 5</span>
                   <span><i class="budget-sol" aria-hidden="true"></i>GPT-5.6-Sol</span>
                   <span><b aria-hidden="true">•</b>Independently tested script</span>
                   <span><b aria-hidden="true">★</b>Final program</span>
                 </div>
-                <p class="budget-measure">Mean test score · Both axes scaled to 0–100 per curve</p>
+                <div class="info-tags"><span class="info-tag">Mean test score</span><span class="info-tag">Both axes 0–100 per curve</span></div>
               <div class="budget-game"><h4>Balatro</h4>
                 <p class="budget-takeaway">Opus selected an early script that outscored every later version tested.</p>
                 <div class="budget-pair">

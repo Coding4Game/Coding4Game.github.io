@@ -39,6 +39,7 @@ jobs:
             done
           )
           cp .nojekyll ./*.html ./*.css ./*.js "$site/"
+          cp arcade/index.html arcade/play.html "$site/arcade/"
           test -s "$site/index.html"
           test -s "$site/data/results.json"
       - uses: actions/upload-pages-artifact@v4
