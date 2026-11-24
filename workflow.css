@@ -159,3 +159,11 @@
   .workflow-path { display: none; }
   .workflow-paper { margin-top: 4px; }
 }
+
+.workflow-rules { scroll-margin-top: 6rem; }
+.workflow-rules summary { cursor: pointer; list-style: none; }
+.workflow-rules summary::-webkit-details-marker { display: none; }
+.workflow-rules summary:hover .text-link { text-decoration: underline; }
+.workflow-rules-chevron { display: inline-block; }
+.workflow-rules[open] .workflow-rules-chevron { transform: rotate(180deg); }
+.workflow-rules .score-details { margin-top: 1rem; }

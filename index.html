@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" sizes="64x64" href="/assets/coding4games-icon.png">
   <link rel="stylesheet" href="/styles.css?v=action-colors">
   <link rel="stylesheet" href="/comic.css?v=continuous-challenge">
-  <link rel="stylesheet" href="/workflow.css?v=auto-replay">
+  <link rel="stylesheet" href="/workflow.css?v=scoring-footer">
   <link rel="stylesheet" href="/findings.css?v=ranked-references">
   <link rel="stylesheet" href="/teaser.css?v=continuous-challenge">
   <link rel="stylesheet" href="/teaser-layout-start-flame.css">
@@ -137,24 +137,6 @@
         </div>
         <a class="text-link" href="#games">Browse games <span aria-hidden="true">↓</span></a>
       </div>
-      <details class="score-rules rank-scoring" id="rank-scoring">
-        <summary>
-          <span class="score-badge">Leaderboard scoring</span>
-          <strong class="score-formula">
-            <span class="score-formula-term">0–100 per game</span>
-            <span class="score-formula-arrow" aria-hidden="true">→</span>
-            <span class="score-formula-term score-formula-result">mean across 15 games</span>
-          </strong>
-          <span class="score-toggle" aria-hidden="true"></span>
-        </summary>
-        <div class="score-details">
-          <dl>
-            <div><dt>Game result</dt><dd>Average the independent test scores for a frozen program. Earlier entries use their recorded result.</dd></div>
-            <div><dt>Scale each game</dt><dd><code>100 × (result − lowest) ÷ (highest − lowest)</code>. The range includes coding agents, GUI agents and the human reference.</dd></div>
-            <div><dt>Rank participants</dt><dd>Take the arithmetic mean of all 15 scaled scores, weighted equally. Incomplete coverage is unranked.</dd></div>
-          </dl>
-        </div>
-      </details>
       <div class="table-scroll leaderboard-scroll">
         <table class="leaderboard-table">
           <thead><tr><th scope="col">Rank</th><th scope="col">Participant</th><th scope="col" class="numeric">Mean score</th></tr></thead>
@@ -199,10 +181,19 @@
           <p>The frozen program plays fresh trials on its own, with zero model calls.</p>
         </li>
       </ol>
-      <div class="workflow-scoring">
-        <p><strong>0–100 per game</strong><span aria-hidden="true">→</span> Mean across 15 games</p>
-        <a class="text-link" id="workflow-scoring-link" href="#rank-scoring">Scoring rules <span aria-hidden="true">↑</span></a>
-      </div>
+      <details class="workflow-rules" id="rank-scoring">
+        <summary class="workflow-scoring" id="workflow-scoring-link">
+          <span><strong>0–100 per game</strong> → Mean across 15 games</span>
+          <span class="text-link">Scoring rules <span class="workflow-rules-chevron" aria-hidden="true">⌄</span></span>
+        </summary>
+        <div class="score-details">
+          <dl>
+            <div><dt>Game result</dt><dd>Average the independent test scores for a frozen program. Earlier entries use their recorded result.</dd></div>
+            <div><dt>Scale each game</dt><dd><code>100 × (result − lowest) ÷ (highest − lowest)</code>. The range includes coding agents, GUI agents and the human reference.</dd></div>
+            <div><dt>Rank participants</dt><dd>Take the arithmetic mean of all 15 scaled scores, weighted equally. Incomplete coverage is unranked.</dd></div>
+          </dl>
+        </div>
+      </details>
     </section>
 
     <section class="wrap paper-findings" id="findings" aria-labelledby="findings-title">
