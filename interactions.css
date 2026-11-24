@@ -25,17 +25,9 @@
   text-align: center;
 }
 .finding-chart > .info-tags, .budget-figure > .info-tags { margin: .75rem auto; }
-#leaderboard-description { margin-top: .8rem; }
+#leaderboard-description { margin-top: .8rem; justify-content: flex-start; }
 .info-tags .info-tag strong { color: #ffd3aa; }
-.findings-heading, .leaderboard-heading, .directory-heading, .workflow-heading,
-.game-test-heading, .browse-heading, .playable-heading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: .85rem;
-  text-align: center;
-}
+.leaderboard-heading { flex-wrap: wrap; }
 .findings-tally { width: min(100%, 23rem); }
 .finding-number, .finding-glyph { justify-self: center; }
 .finding-list summary::after { justify-self: end; margin-inline-end: .3rem; }
@@ -43,21 +35,15 @@
 .finding-evidence { width: calc(100% - 2rem); margin-inline: auto; }
 .finding-chart, .finding-evidence > p { margin-inline: auto; }
 .finding-evidence > p { max-width: 70ch; }
-.finding-chart figcaption, .budget-figure figcaption, .budget-game h4,
-.finding-record, .budget-takeaway { text-align: center; }
+.budget-takeaway, .finding-record p { text-align: center; }
 .grounding-key, .budget-key, .interaction-key, .finding-links,
-.game-test-models, .model-summary, .duel-actions, .brief-links { justify-content: center; }
+.game-test-models { justify-content: center; }
 .grounding-key > div, .interaction-key span, .budget-key span { font-size: 1rem; }
 .grounding-key dt { display: grid; min-width: 2rem; min-height: 1.75rem; place-items: center; }
 .run-overview, .table-heading, .trace-entry-head, .trace-entry-actions { align-items: center; }
 .workflow-scoring, .workflow-scoring p { justify-content: center; align-items: center; }
-.score-details dt { text-align: center; }
-.duel-intro, .brief-content, .experiment-heading > div:first-child { text-align: center; }
-.brief-panels p { text-align: start; }
-.evidence-tabs, .test-option, .model-summary > div, .playable-caption,
+.evidence-tabs, .test-option, .model-summary > div,
 .playable-results, .run-stats > div { justify-content: center; align-items: center; text-align: center; }
-.playable-caption { justify-items: center; }
-.playable-results { justify-self: center; }
 .evidence-tabs button { justify-content: center; }
 .run-stats dt, .trace-controls label > span, .result-switch > span, .experiment-switch > span {
   font-size: .95rem;
@@ -68,7 +54,7 @@
 .playable-results, .trace-summary, .run-fact-list, .trace-log-head span,
 .script-controls span[role="status"], .frame-dialog figcaption, .trace-frame figcaption { font-size: 1rem; }
 .table-heading p, .trace-frame figcaption { text-align: center; }
-.script-info, .script-info p, .video-meta { text-align: center; }
+.video-meta { text-align: center; }
 .script-info .info-tag { margin-top: .45rem; color: #efdfeb; font-size: 1rem; }
 .video-meta, .script-controls { justify-content: center; }
 .frame-dialog figcaption { padding: .6rem 0 0; }
@@ -76,13 +62,14 @@
 .run-facts summary, .trial-list summary, .trace-disclosure summary, .trace-runtime > details > summary {
   font-size: 1rem;
 }
-.run-facts summary, .round-details summary { margin-inline: auto; }
 .round-details[open] > summary { margin-bottom: 0; }
 .round-details > .controls { padding-top: 1rem; }
-.duel-preview figcaption { justify-content: center; gap: .65rem; }
+.duel-preview figcaption { justify-content: flex-start; gap: .65rem; }
+.duel-preview .duel-replay { margin-inline-start: auto; }
 .duel-preview figcaption strong { font: italic 800 1.32rem/1.2 var(--display); }
 .duel-replay { font-size: 1rem; }
 .cover-preview-source { display: inline-flex; align-items: center; min-height: 1.7rem; padding: .12em .55em; background: #151018db; }
+.teaser-stage[data-preview-side] .cover-preview-heading { justify-content: flex-start; text-align: start; }
 
 select:not([multiple]):not([size]) {
   min-height: 44px;
@@ -171,9 +158,7 @@ select:not([multiple]):not([size]) {
   @keyframes panel-arrive { from { opacity: 0; transform: translateY(5px); } }
 }
 @media (max-width: 720px) {
-  .run-overview, .run-stats, .script-toolbar, .table-heading, .chart-heading { justify-content: center; }
-  .script-toolbar, .chart-heading, .table-heading { text-align: center; }
-  .chart-links, .filters { margin-inline: auto; }
+  .run-overview, .run-stats { justify-content: center; }
   .evidence-tabs button { flex: 1 1 auto; }
   .grounding-key dd { text-wrap: balance; }
 }

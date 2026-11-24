@@ -3,7 +3,7 @@ import {
   policyScriptLabel, showGameplayPreview, testRuns, testVideoUrl,
 } from "/common.js?v=recovered-evidence";
 import { gameScoring } from "/game-scoring.js";
-import { formatRankScore, recordedScore, summarizeResults } from "/ranking.js?v=gvc-paper";
+import { formatRankScore, recordedScore, summarizeResults } from "/ranking.js?v=ranked-references";
 import { steamStoreUrl, taskBriefs } from "/task-briefs.js?v=steam";
 import { playableUrl } from "/arcade/playable.js?v=duel";
 

@@ -22,7 +22,7 @@ export const paperScores = {
 };
 
 export const paperReferenceScores = [
-  { name: "Human reference", mean: 97.2 },
-  { name: "GPT-5.6-Sol · GUI", mean: 26.4 },
-  { name: "Claude Sonnet 5 · GUI", mean: 26.8 },
+  { name: "Human reference", reference: "human", mean: 97.2 },
+  { name: "GPT-5.6-Sol · GUI", reference: "gui", mean: 26.4 },
+  { name: "Claude Sonnet 5 · GUI", reference: "gui", mean: 26.8 },
 ];

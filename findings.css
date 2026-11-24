@@ -1,22 +1,18 @@
-.leaderboard-references {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 15px;
+.leaderboard-table tr[data-reference="human"] { --reference-ink: #ffce72; }
+.leaderboard-table tr[data-reference="gui"] { --reference-ink: #82dbe4; }
+.leaderboard-table tbody tr[data-reference] {
+  background: color-mix(in srgb, var(--reference-ink) 7%, var(--surface));
 }
-
-.leaderboard-references > div {
-  display: flex;
+.leaderboard-table tr[data-reference] :is(.rank-value, .rank-number, .rank-name) { color: var(--reference-ink); }
+.leaderboard-table tr[data-reference] .rank-fill {
+  background: repeating-linear-gradient(118deg, var(--reference-ink) 0 8px, color-mix(in srgb, var(--reference-ink) 72%, var(--paper)) 8px 14px);
+}
+.rank-reference-name {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
-  padding: 11px 14px;
-  border: 1px solid #49354f;
-  background: #15101a;
 }
-
-.leaderboard-references dt { color: #c5b4c4; font-size: .84rem; }
-.leaderboard-references dd { color: #e7dbe5; font-size: 1.1rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+.rank-reference-name svg { width: 20px; height: 20px; flex: none; }
 
 .paper-findings { margin-block: 0 64px; }
 
@@ -272,13 +268,12 @@
 }
 
 @media (max-width: 800px) {
-  .leaderboard-references > div { flex-direction: column; align-items: start; gap: 4px; }
   .findings-heading { grid-template-columns: 1fr auto; gap: 1.1rem .65rem; }
   .findings-tally { grid-column: 1 / -1; grid-row: 2; width: min(100%, 22.5rem); }
 }
 @media (max-width: 480px) {
-  .leaderboard-references { grid-template-columns: minmax(0, 1fr); gap: 7px; }
-  .leaderboard-references > div { flex-direction: row; align-items: center; }
+  .rank-reference-name { gap: 7px; }
+  .rank-reference-name svg { width: 16px; height: 16px; }
   .paper-findings { margin-bottom: 44px; }
   .findings-heading { padding-bottom: 1.1rem; }
   .findings-heading .comic-section-title { padding-inline: .55rem .85rem; font-size: clamp(1.68rem, 7.4vw, 2.35rem); }

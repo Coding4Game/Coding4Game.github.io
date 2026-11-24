@@ -1,8 +1,7 @@
 import {
   browseUrl, byId, element, experimentUrl, gameMedia, get, testRuns,
 } from "/common.js?v=native-videos";
-import { formatRankScore, summarizeResults } from "/ranking.js?v=gvc-paper";
-import { paperReferenceScores } from "/paper-results.js?v=gvc-paper";
+import { formatRankScore, summarizeResults } from "/ranking.js?v=ranked-references";
 import { playableUrl } from "/arcade/playable.js?v=duel";
 
 const modelIcons = new Map([
@@ -36,12 +35,6 @@ function syncHomeNavigation() {
 syncHomeNavigation();
 addEventListener("hashchange", syncHomeNavigation);
 
-byId("leaderboard-references")?.replaceChildren(...paperReferenceScores.map(({ name, mean }) => {
-  const reference = element("div");
-  reference.append(element("dt", "", name), element("dd", "", formatRankScore.format(mean)));
-  return reference;
-}));
-
 if ("IntersectionObserver" in window) {
   const observer = new IntersectionObserver((entries) => {
     for (const entry of entries) {
@@ -56,18 +49,32 @@ function rankRow(model) {
   const rank = element("td", "rank-number", model.rank ?? "—");
   const name = element("th", "rank-name");
   name.scope = "row";
-  const link = element("a", "entity-link", model.name);
-  link.href = browseUrl("model", model.id);
-  const iconName = modelIcons.get(model.id);
-  if (iconName) {
-    const icon = element("img", "rank-model-icon");
-    icon.alt = "";
-    icon.width = 20;
-    icon.height = 20;
-    icon.src = `/assets/model-icons/${iconName}.png`;
-    link.prepend(icon);
+  if (model.reference) {
+    row.dataset.reference = model.reference;
+    const label = element("span", "rank-reference-name", model.name);
+    const ns = "http://www.w3.org/2000/svg";
+    const icon = document.createElementNS(ns, "svg");
+    const use = document.createElementNS(ns, "use");
+    icon.setAttribute("viewBox", "0 0 24 24");
+    icon.setAttribute("aria-hidden", "true");
+    use.setAttribute("href", `/assets/finding-icons.svg#${model.reference}`);
+    icon.append(use);
+    label.prepend(icon);
+    name.append(label);
+  } else {
+    const link = element("a", "entity-link", model.name);
+    link.href = browseUrl("model", model.id);
+    const iconName = modelIcons.get(model.id);
+    if (iconName) {
+      const icon = element("img", "rank-model-icon");
+      icon.alt = "";
+      icon.width = 20;
+      icon.height = 20;
+      icon.src = `/assets/model-icons/${iconName}.png`;
+      link.prepend(icon);
+    }
+    name.append(link);
   }
-  name.append(link);
   const score = element("td", "numeric");
   const meter = element("div", "rank-meter");
   const track = element("span", "rank-track");
@@ -134,10 +141,10 @@ function gameLink(game) {
     action.setAttribute("aria-label", `${label} · ${game.name}`);
     actions.append(action);
   };
-  if (demo) addLink("Play demo", demo, "card-play");
   if (recorded) addLink("Test videos", link.href + "#test-videos", "card-watch");
   const policyRun = recorded?.files?.length ? recorded : [...game.results.values()].find((run) => run.files?.length);
-  if (policyRun) addLink("Policy script", experimentUrl(policyRun, { tab: "script" }));
+  if (policyRun) addLink("Policy script", experimentUrl(policyRun, { tab: "script" }), "card-policy");
+  if (demo) addLink("Play demo", demo, "card-play");
   if (actions.childElementCount) item.append(actions);
   return item;
 }

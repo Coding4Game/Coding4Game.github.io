@@ -1,4 +1,4 @@
-import { paperGameOrder, paperScores } from "/paper-results.js?v=gvc-paper";
+import { paperGameOrder, paperReferenceScores, paperScores } from "/paper-results.js?v=ranked-references";
 
 export const formatRankScore = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 1,
@@ -23,9 +23,13 @@ export function summarizeResults(runs) {
     results.set(run.model, run);
   }
 
+  let includeReferences = games.size === paperGameOrder.length;
   for (const game of games.values()) {
     const scored = [...game.results.values()].filter((run) => Number.isFinite(recordedScore(run)));
-    if (!scored.length) continue;
+    if (!scored.length) {
+      includeReferences = false;
+      continue;
+    }
     const values = scored.map(recordedScore);
     const low = Math.min(...values);
     const high = Math.max(...values);
@@ -36,6 +40,7 @@ export function summarizeResults(runs) {
       return run.id === paperRunId && Object.hasOwn(paperScores, run.model)
         && (formal ? run.batch === "current" && run.version === "formal" : run.batch === "paper");
     });
+    if (!usePaperScale) includeReferences = false;
     for (const run of scored) {
       const score = usePaperScale
         ? paperScores[run.model][paperGameIndex]
@@ -51,7 +56,9 @@ export function summarizeResults(runs) {
     mean: points.length && points.length === games.size
       ? points.reduce((sum, score) => sum + score, 0) / games.size
       : null,
-  })).sort((first, second) => {
+  }));
+  if (includeReferences) standings.push(...paperReferenceScores.map((entry) => ({ ...entry })));
+  standings.sort((first, second) => {
     if (first.mean === null) return second.mean === null ? first.name.localeCompare(second.name) : 1;
     if (second.mean === null) return -1;
     return second.mean - first.mean || first.name.localeCompare(second.name);

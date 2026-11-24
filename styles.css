@@ -119,11 +119,38 @@ main, section, .table-section { scroll-margin-top: 24px; }
 .game-card:is(:hover, :focus-visible) .panel-media::after { opacity: .72; animation: speed-lines 460ms ease-out; }
 .panel-caption { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 42px; padding: 6px 13px 8px; border-top: 2px solid var(--ink); background: #120d0a; font: italic 800 clamp(1rem, 1.7vw, 1.34rem)/1 var(--display); letter-spacing: .025em; text-transform: uppercase; }
 .panel-arrow { display: grid; flex: 0 0 25px; height: 24px; place-items: center; background: var(--panel-color); color: var(--accent-ink); clip-path: polygon(13% 0, 100% 0, 87% 100%, 0 100%); font: 760 .84rem/1 Inter, sans-serif; }
-.game-card-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 8px 3px 3px; }
-.game-card-actions a { display: inline-flex; flex: 1 1 auto; align-items: center; justify-content: center; min-height: 37px; padding: 5px 8px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font: italic 800 1.14rem/1 var(--display); }
-.game-card-actions a.card-watch { border-color: #6b9da8; color: #a5e4ed; }
-.game-card-actions a.card-play { border-color: #ffce72; background: #ffce72; color: #170e14; }
-.game-card-actions a:is(:hover, :focus-visible) { background: var(--ink); color: var(--accent-ink); }
+.game-card-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin: 6px 3px 4px;
+}
+.game-card-actions a {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: 40px;
+  color: var(--action-color);
+  font: italic 800 1.06rem/1 var(--display);
+  white-space: nowrap;
+}
+.game-card-actions a::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 1px 2px 3px;
+  transform: skewX(-6deg);
+  border: 1px solid color-mix(in srgb, var(--action-color) 80%, var(--paper));
+  background: color-mix(in srgb, var(--action-color) 13%, var(--paper));
+  box-shadow: 1px 2px 0 color-mix(in srgb, var(--action-color) 57%, var(--paper));
+}
+.game-card-actions .card-watch { grid-column: 1; --action-color: #82dbe4; }
+.game-card-actions .card-policy { grid-column: 2; --action-color: #cba0e1; }
+.game-card-actions .card-play { grid-column: 3; --action-color: #ffce72; }
+.game-card-actions a:is(:hover, :focus-visible) { color: var(--paper); }
+.game-card-actions a:is(:hover, :focus-visible)::before { background: var(--action-color); border-color: var(--ink); }
+.game-card-actions a:focus-visible { outline-offset: 2px; }
 .panel-enter { animation: panel-in 480ms cubic-bezier(.15, .71, .28, 1) var(--panel-delay, 0ms) both; }
 
 @keyframes panel-in {
@@ -435,6 +462,7 @@ a.test-score:hover { background: var(--tint); border-color: var(--accent); color
 
 @media (max-width: 960px) {
   .wrap { width: min(100% - 48px, 1176px); }
+  .game-index { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
   .workflow-steps li { padding-inline: 12px; gap: 8px 9px; }
   th, td { padding-inline: 9px; }
 }
@@ -450,12 +478,11 @@ a.test-score:hover { background: var(--tint); border-color: var(--accent); color
   .brief-art { min-height: clamp(138px, 34vw, 215px); }
   .game-test-screen { grid-template-columns: minmax(0, 1fr); }
   .game-test-trials { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
-  .game-card-actions a { min-height: 39px; }
   .leaderboard-table th, .leaderboard-table td { padding-inline: 9px; }
   .rank-number { width: 49px; }
   .rank-name { width: 49%; }
   .rank-meter { gap: 6px; }
-  .game-index { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+  .game-index { gap: 11px; }
   .workflow { margin-bottom: 36px; }
   .workflow-steps { grid-template-columns: 1fr; gap: 18px; }
   .workflow-steps li { padding: 12px 15px; }
@@ -480,7 +507,6 @@ a.test-score:hover { background: var(--tint); border-color: var(--accent); color
   .rank-name { width: 52%; overflow-wrap: anywhere; font-size: .84rem; }
   .rank-name .entity-link { gap: 7px; }
   .rank-model-icon { width: 16px; height: 16px; }
-  .game-index { grid-template-columns: minmax(0, 1fr); }
   .panel-caption { font-size: 1.26rem; }
   .brief-panels { grid-template-columns: minmax(0, 1fr); }
   .brief-panels > div + div { border-left: 0; border-top: 1px solid var(--line); padding: 9px 0 0; }
